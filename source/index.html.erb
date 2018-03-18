@@ -1,0 +1,123 @@
+---
+title: Emil Karlsson - Service Manager at Evry (my personal site)
+description: The personal site of Emil Karlsson
+scripts:
+  - home/svg
+  - home/title
+  - home/video
+---
+
+<% content_for(:header) do %>
+  <section class='Me'>
+    <section class='Me-mugshot'>
+      <%= image_tag 'home/me.jpg' %>
+    </section>
+
+    <section class='Me-blurb'>
+      <h2>Hi, I’m Emil!</h2>
+      <h3>Service Manager @<a href='https://evry.com'>Evry</a></h3>
+      <h4>A passion for digital products, services and businesses drives me forward in the pursuit of new knowledge and new challenges.</h4>
+
+      <section class='Me-social'>
+        <a href='mailto:me@emilingemarkarlsson.com' id='link-email'>
+          <%= partial '/assets/images/icons/mail.svg' %>
+        </a>
+      </section>
+    </section>
+  </section>
+<% end %>
+
+<article class='TimelineItem'>
+  <aside class='TimelineItem-pics TimelineItem-pics--multi TimelineItem-pics--jelly'>
+    <%= image_tag 'home/evry.png' %>
+
+    <a class='TimelineItem-pics-footer' href='https://goo.gl/maps/PXwt4jH7Koo'>
+      <%= image_tag 'home/map.png?v=2', class: 'map' %>
+    </a>
+  </aside>
+
+  <section class='TimelineItem-details'>
+    <h2><a href='https://evry.com'>Evry</a></h2>
+    <h3>Service Manager, 2017 – Present</h3>
+    <p><a href='https://evry.com'>Evry</a> is a consultant company that partner with customers to create digital advantage.</p>
+
+    <p>I`m responsible for the delivery of infrastructure to five different customers in the retail, manufacturing and real estate industry.</p>
+
+    <p>Promote a strong collaborative work culture both internally and with customers that create efficiency and stable infrastructure.</p>
+
+    <p>Has implemented new preventive analysis to improve support and server operation by compiling and analyzing big data using <a href='https://www.r-project.org/'>R</a> and <a href='https://powerbi.microsoft.com/en-us/'>Microsoft Power BI</a>.</p>
+  </section>
+</article>
+
+<article class='TimelineItem'>
+  <aside class='TimelineItem-pics TimelineItem-pics--smaller TimelineItem-pics--jelly'>
+    <%= image_tag 'home/ju.png' %>
+  </aside>
+
+  <section class='TimelineItem-details'>
+    <h2><a href='https://ju.se/'>Jönköping University</a></h2>
+    <h3>Innovation Manager, 2015 – 2017</h3>
+    <p>At <a href='http://www.makersacademy.com'>Jönköpings University</a>, I was lucky enough to stimulate innovative thinking by developing and implementing relevant tools and sharing best practices.</p>
+
+    <p>I spent most of my time with business development based on Innovative concepts, from start to market introduction together with individuals with different areas of competence at Jönköping University.</p>
+
+
+  <!--  <section class='MediaAppearances'>
+      <section class='MediaAppearances-details' video-modal='OGp15f5uEvk'>
+        <h4>Interview w/ London Live TV</h4>
+        <date>19/06/14</date>
+      </section>
+
+      <section class='MediaAppearances-thumb'>
+        <a video-modal='OGp15f5uEvk'>
+          <%= image_tag 'home/londonlive.png' %>
+        </a>
+      </section>
+
+      <section class='MediaAppearances-details' video-modal='tTGdTs9qi0o'>
+        <h4>Sky News piece</h4>
+        <date>18/07/14</date>
+      </section>
+
+      <section class='MediaAppearances-thumb'>
+        <a video-modal='tTGdTs9qi0o'>
+          <%= image_tag 'home/sky.png' %>
+        </a>
+      </section>
+    </section>
+  -->
+
+  </section>
+</article>
+
+<article class='TimelineItem'>
+  <aside class='TimelineItem-pics TimelineItem-pics--jelly -experience--ap'>
+    <%= image_tag 'home/tuva.png' %>
+  </aside>
+
+  <section class='TimelineItem-details'>
+    <h2>Tuva</h2>
+    <h3>CEO &amp Founder 2014 – 2016</h3>
+    <p>As founder together with my team we help Neighborhoods to improve internal and external communications and operate on the cross point of three major trends, Digital transformation, Internet of things and Security.</p>
+  </section>
+</article>
+
+<article class='TimelineItem'>
+  <aside class='TimelineItem-pics TimelineItem-pics--jelly -experience--ap'>
+    <%= image_tag 'home/hv.png' %>
+  </aside>
+
+  <section class='TimelineItem-details'>
+    <h2>HV 71</h2>
+    <h3>Hockey Coach HV71 J20</h3>
+    <p>My top qualifications as a coach: <a href='http://www.eliteprospects.com/staff.php?staff=4044'>J20 SM Gold</a></p>
+  </section>
+</article>
+
+<article class='TimelineItem TimelineItem--topLink'>
+  <section class='TimelineItem-footer'>
+    <h3><a>Take me back to the top!</a></h3>
+  </section>
+</article>
+
+<%= partial 'components/video-modal' %>

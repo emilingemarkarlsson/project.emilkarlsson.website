@@ -1,0 +1,12 @@
+{
+  "name": "inviewport",
+  "homepage": "https://github.com/henkbulder/inViewPort",
+  "_release": "26b578fa04",
+  "_resolution": {
+    "type": "commit",
+    "commit": "26b578fa047cdf1d7369a6617281cb321018600d"
+  },
+  "_source": "https://github.com/henkbulder/inViewPort.git",
+  "_target": "26b578fa047cdf1d7369a6617281cb321018600d",
+  "_originalSource": "https://github.com/henkbulder/inViewPort.git"
+}

@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+    <meta charset='utf-8'>
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport'>
+    <meta name='description' content="There are lots of ways to speed up your Rails site, but here are two I see a lot of sites neglecting: gzipping and serving jQuery by CDN.">
+    
+
+    <title>Two quick tips to speed up Rails 3 on Heroku - Alex Peattie</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ff0000">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ff0000">
+
+    <link href="/assets/css/all.css" rel="stylesheet" />
+    <script src="/assets/js/all.js"></script>
+  </head>
+
+  <body class='blog blog_two-tips-to-speed-up-rails'>
+    <header>
+  <nav class='MainMenu'>
+    <a href='/' class='Logo'>
+      <span>alex</span>peattie
+    </a>
+
+    <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
+
+    <section class='MainMenu-links'>
+      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
+    <!--  <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a> -->
+    <!-- <a href='/talks' class='NavBtn' id='NavBtnTalks'>Talks</a> -->
+    <!-- <a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a> -->
+
+      <a class='NavBtn NavBtn--close' data-toggle-modal-menu>✕</a>
+    </nav>
+  </nav>
+
+  
+</header>
+
+
+    <main>
+        <article class='ContentBody'>
+    <h1>Two quick tips to speed up Rails 3 on Heroku</h1>
+    <h2 class='PostMeta'>
+      <time datetime="2012-08-13" pubdate="true">13th August 2012</time> – 
+      <a href='#comments' data-disqus-url='http://alexpeattie.com/blog/two-tips-to-speed-up-rails.html'>comments</a>
+    </h2>
+    <p>There are lots of ways to speed up your Rails site, but here are two I see a lot of sites neglecting: gzipping and serving jQuery by CDN.</p>
+
+<h2 id="enabling-gzip-on-heroku">Enabling gzip on Heroku</h2>
+
+<p>Heroku's Cedar Stack by default doesn't gzip assets, which means everything is sent to the browser uncompressed. This goes against <a href="http://developer.yahoo.com/performance/rules.html#gzip">best practices</a>, and can slow down your load times considerably. Luckily it's a super easy fix. In your <code>config.ru</code>, just <code>use Rack::Deflater</code> before you run your application:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="s1">'../config/environment'</span><span class="p">,</span>  <span class="kp">__FILE__</span><span class="p">)</span>
+<span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Deflater</span>
+<span class="n">run</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Application</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Technically, we're using <code>DEFLATE</code> rather than <code>GZIP</code> - there's a good write-up of the subtle differences <a href="http://zoompf.com/2012/02/lose-the-wait-http-compression">here</a>.</p>
+
+<h2 id="loading-jquery-from-a-cdn">Loading jQuery from a CDN</h2>
+
+<p>By default Rails 3 uses jQuery, and by default it serves jQuery through your app's asset pipeline. This probably isn't ideal - loading jQuery from a content delivery network (CDN) can speed things up significantly, Dave Ward has a <a href="http://encosia.com/3-reasons-why-you-should-let-google-host-jquery-for-you/">great write-up</a> of why that is. Again, it's really simple to set up, thanks to the <a href="https://github.com/kenn/jquery-rails-cdn">jquery-rails-cdn</a> gem.</p>
+
+<p>Full instructions are on Github, but basically you need to remove:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">jquery</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>from your <code>application.js</code>, and in your layout add:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">=</span> <span class="n">jquery_include_tag</span> <span class="ss">:google</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>I'd recommend sticking with Google's CDN, but there are other options to choose from. Pingdom has a <a href="http://royal.pingdom.com/2012/07/24/best-cdn-for-jquery-in-2012/">very thorough rundown</a> of the pros/cons of the various CDNs out there.</p>
+
+  </article>
+  
+  <article class='Comments'>
+  <h2 id='comments'>Comments</h2>
+
+  <div id='disqus_thread'>
+  </div>
+
+  <script>
+    var disqus_shortname = 'alexpeattie';
+    var disqus_url = 'http://alexpeattie.com/blog/two-tips-to-speed-up-rails.html';
+    var disqus_identifier = '2012 08 13 two tips to speed up rails';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+      var s = document.createElement('script'); s.async = true; s.type = 'text/javascript';
+      s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq).appendChild(s);
+    })();
+  </script>
+</article>
+
+    </main>
+
+    <section class='SourceCallout'>
+    <!--  <p>This site is open-source (<a href='/projects#site'>more info</a>) - here's <a href="https://github.com/alexpeattie/alexpeattie.com/blob/master/source/blog/2012-08-13-two-tips-to-speed-up-rails.html.md">the source code for this page</a></a>.</p>-->
+    </section>
+
+    <footer>
+      <p>© 2018 Emil Karlsson. Questions? Email <a href='mailto:me@emilingemarkarlsson.com'>me@emilingemarkarlsson.com</a>
+      </p>
+    </footer>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-21840499-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
