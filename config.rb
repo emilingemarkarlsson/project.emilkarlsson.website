@@ -45,6 +45,6 @@ configure :development do
 end
 
 # Redirects
-redirect 'projects/justvector_icons.html', to: '/projects/justvector-icons'
+redirect 'projects/justvector_icons.html', to: '/projects/tuva'
 redirect 'projects/animate-textshadow.html', to: '/projects#legacy'
 redirect 'projects/feedback_button.html', to: '/projects#legacy'
