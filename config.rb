@@ -21,6 +21,7 @@ files.watch :source, path: File.join(root, 'source', 'assets', 'favicons'), prio
 
 sprockets.append_path File.join(root, 'bower_components')
 
+
 activate :blog do |blog|
   blog.prefix = 'blog/'
   blog.permalink = ':title.html'
