@@ -1,0 +1,234 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+    <meta charset='utf-8'>
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport'>
+    <meta name='description' content="Let&#39;s Encrypt just rolled out support for ECDSA certificates in staging - a move that I think will nudge ECDSA signing more into the mainstream. ECDSA offers higher levels of security at much lower key sizes; as Ivan Ristić explains in Bulletproof SSL and TLS:">
+    <meta name="twitter:card" content="summary" /> <meta name="twitter:site" content="@alexpeattie" /> <meta name="twitter:title" content="Signing a CSR with an ECDSA key in Ruby" /> <meta name="twitter:description" content="Lets Encrypt just rolled out support for ECDSA certificates in staging..." /> <meta name="twitter:image" content="https://alexpeattie.com/assets/images/posts/signing-a-csr-with-ecdsa-in-ruby/certificate.png" />
+
+    <title>Signing a CSR with an ECDSA key in Ruby - Alex Peattie</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ff0000">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ff0000">
+
+    <link href="/assets/css/all.css" rel="stylesheet" />
+    <script src="/assets/js/all.js"></script>
+  </head>
+
+  <body class='blog blog_signing-a-csr-with-ecdsa-in-ruby'>
+    <header>
+  <nav class='MainMenu'>
+    <a href='/' class='Logo'>
+      <span>emil</span>karlsson
+    </a>
+
+    <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
+
+    <section class='MainMenu-links'>
+      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
+      <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>
+    <!-- <a href='/talks' class='NavBtn' id='NavBtnTalks'>Talks</a> -->
+    <!-- <a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a> -->
+
+      <a class='NavBtn NavBtn--close' data-toggle-modal-menu>✕</a>
+    </nav>
+  </nav>
+
+  
+</header>
+
+
+    <main>
+        <article class='ContentBody'>
+    <h1>Signing a CSR with an ECDSA key in Ruby</h1>
+    <h2 class='PostMeta'>
+      <time datetime="2016-02-09" pubdate="true">9th February 2016</time> – 
+      <a href='#comments' data-disqus-url='http://alexpeattie.com/blog/signing-a-csr-with-ecdsa-in-ruby.html'>comments</a>
+    </h2>
+    <p>Let's Encrypt just <a href="https://community.letsencrypt.org/t/ecdsa-testing-on-staging/8809">rolled out support</a> for ECDSA certificates in staging - a move that I think will nudge ECDSA signing more into the mainstream. ECDSA offers higher levels of security at much lower key sizes; as Ivan Ristić explains in <a href="https://www.feistyduck.com/books/bulletproof-ssl-and-tls/">Bulletproof SSL and TLS</a>:</p>
+
+<blockquote>
+  <p>ECDSA is the algorithm of the future. A 256-bit ECDSA key provides 128 bits of security versus only 112 bits of a 2,048-bit RSA key. At these sizes, in addition to pro- viding more security, ECDSA is also 2x faster. Compared at equivalent security, against a 3,072-bit RSA key, ECDSA is over 6x faster.</p>
+</blockquote>
+
+<p>All modern browsers <a href="https://www.ssllabs.com/ssltest/viewMyClient.html">prefer cipher suites</a> using ECDSA keys over RSA keys, although some older clients (IE 10 and older, Android &lt; 4.4) don't support them; and neither do certain cloud-based servers (I tried and failed with AWS and Netlify 😔).</p>
+
+<p>If you are entering the exciting world of ECDSA with Ruby there are a couple of pitfalls to avoid. Let's look at the code for generating a Certificate Signing Request (CSR) with an RSA key:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="n">domain_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">RSA</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+
+<span class="n">csr</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">subject</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Name</span><span class="p">.</span><span class="nf">new</span><span class="p">([[</span><span class="s1">'CN'</span><span class="p">,</span> <span class="s1">'alexpeattie.com'</span><span class="p">]])</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Ruby comes with a <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/openssl/rdoc/OpenSSL/PKey/EC.html"><code>OpenSSL::PKey::EC</code> class</a> so the optimist in us might guess we could just swap out all instances of <code>OpenSSL::PKey::RSA</code> with <code>OpenSSL::PKey::EC</code>:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="n">ec_domain_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
+
+<span class="n">csr</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">subject</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Name</span><span class="p">.</span><span class="nf">new</span><span class="p">([[</span><span class="s1">'CN'</span><span class="p">,</span> <span class="s1">'alexpeattie.com'</span><span class="p">]])</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">ec_domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>If only life were that simple - in fact we'll need to make a few tweaks to get our CSR working. The first problem is that the <code>public_key</code> and <code>private_key</code> aren't populated when we instantiate the <code>ec_domain_key</code>, we have to populate them with the <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/openssl/rdoc/OpenSSL/PKey/EC.html#method-i-generate_key"><code>generate_key</code></a> method:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="c1">#= &gt; nil</span>
+
+<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span><span class="p">;</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="c1">#=&gt; #&lt;OpenSSL::PKey::EC::Point:0x007fdbece64f90 @group=#&lt;OpenSSL::PKey::EC::Group:0x007fdbece64fb8 @key=#&lt;OpenSSL::PKey::EC:0x007fdbece94880 @group=#&lt;OpenSSL::PKey::EC::Group:0x007fdbece64fb8 ...&gt;&gt;&gt;&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The next problem comes when we try and set the <code>public_key</code> of the CSR:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2</pre></td><td class="code"><pre><span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="c1"># TypeError: wrong argument (OpenSSL::PKey::EC::Point)! (Expected kind of OpenSSL::PKey::PKey)</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>As the error message tells us, <code>ec_domain_key.public_key</code> is returning an <code>OpenSSL::PKey::EC::Point</code> which doesn't work with our CSR.</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre><span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">PKey</span>
+<span class="c1">#=&gt; true</span>
+
+<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">PKey</span>
+<span class="c1">#=&gt; false</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>We could just use our whole <code>ec_domain_key</code> as our <code>csr.public_key</code> - this has no bad consequences as far as I can tell, but this would be a bit confusing: <code>ec_domain_key</code> is really a private key. A better workaround is to create a second instance of <code>OpenSSL::PKey::EC</code> to act as our public key, then copy over the public part of <code>ec_domain_key</code>:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="n">ec_domain_key</span><span class="p">,</span> <span class="n">ec_public</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">),</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
+<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span>
+
+<span class="n">ec_public</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="n">ec_public</span><span class="p">.</span><span class="nf">private_key</span>
+<span class="c1">#=&gt; nil</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The last issue is that during when we call <code>.sign</code>, Ruby internally calls the <code>.private?</code> method on our signing keys. The problem is that for <code>OpenSSL::PKey::EC</code> the method is named <code>.private_key?</code> (argh!). This is <a href="https://redmine.ruby-lang.org/issues/5600">a known issue</a>, but luckily quite easy to monkey-patch with <code>alias_method</code>:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:alias_method</span><span class="p">,</span> <span class="ss">:private?</span><span class="p">,</span> <span class="ss">:private_key?</span><span class="p">)</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Our final code to generate an Certificate Signing Request with ECDSA keys in Ruby looks like this:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10</pre></td><td class="code"><pre><span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:alias_method</span><span class="p">,</span> <span class="ss">:private?</span><span class="p">,</span> <span class="ss">:private_key?</span><span class="p">)</span>
+
+<span class="n">ec_domain_key</span><span class="p">,</span> <span class="n">ec_public</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">),</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
+<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span>
+<span class="n">ec_public</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+
+<span class="n">csr</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">subject</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Name</span><span class="p">.</span><span class="nf">new</span><span class="p">([[</span><span class="s1">'CN'</span><span class="p">,</span> <span class="s1">'alexpeattie.com'</span><span class="p">]])</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_public</span>
+<span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">ec_domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
+</pre></td></tr></tbody></table>
+</div>
+
+  </article>
+  
+  <article class='Comments'>
+  <h2 id='comments'>Comments</h2>
+
+  <div id='disqus_thread'>
+  </div>
+
+  <script>
+    var disqus_shortname = 'alexpeattie';
+    var disqus_url = 'http://alexpeattie.com/blog/signing-a-csr-with-ecdsa-in-ruby.html';
+    var disqus_identifier = '2016 02 09 signing a csr with ecdsa in ruby';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+      var s = document.createElement('script'); s.async = true; s.type = 'text/javascript';
+      s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq).appendChild(s);
+    })();
+  </script>
+</article>
+
+    </main>
+
+    <section class='SourceCallout'>
+    <!--  <p>This site is open-source (<a href='/projects#site'>more info</a>) - here's <a href="https://github.com/alexpeattie/alexpeattie.com/blob/master/source/blog/2016-02-09-signing-a-csr-with-ecdsa-in-ruby.html.md">the source code for this page</a></a>.</p>-->
+    </section>
+
+    <footer>
+      <p>© 2018 Emil Karlsson. Questions? Email <a href='mailto:me@emilingemarkarlsson@gmail.com'>emilingemarkarlsson@gmail.com</a>
+      </p>
+    </footer>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-116235734-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
