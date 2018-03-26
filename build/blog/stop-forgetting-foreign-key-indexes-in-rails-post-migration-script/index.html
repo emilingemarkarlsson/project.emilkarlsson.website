@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+    <meta charset='utf-8'>
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport'>
+    <meta name='description' content="One of our New Year&#39;s resolutions at Peg was to make the site faster. For the most part the site was responsive (requests completed in &lt; 100ms), but certain pages were taking much longer to load than they should - with database queries eating up most of the time.">
+    <meta name="twitter:card" content="summary" /> <meta name="twitter:site" content="@alexpeattie" /> <meta name="twitter:title" content="Stop forgetting your foreign key indexes in Rails with this simple post-migration script" /> <meta name="twitter:description" content="One of our New Years resolutions at Peg was to make the site faster..." /> <meta name="twitter:image" content="https://alexpeattie.com/assets/images/posts/stop-forgetting-foreign-key-indexes-in-rails-post-migration-script/memory-aid.png" />
+
+    <title>Stop forgetting your foreign key indexes in Rails with this simple post-migration script - Alex Peattie</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32-18545059.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192-62275dc0.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16-13aa2390.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab-b8c45f01.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ff0000">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ff0000">
+
+    <link href="/assets/css/all-a7a0038a.css" rel="stylesheet" />
+    <script src="/assets/js/all-a1da6af5.js"></script>
+  </head>
+
+  <body class='blog blog_stop-forgetting-foreign-key-indexes-in-rails-post-migration-script blog_stop-forgetting-foreign-key-indexes-in-rails-post-migration-script_index'>
+    <header>
+  <nav class='MainMenu'>
+    <a href='/' class='Logo'>
+      <span>emil</span>karlsson
+    </a>
+
+    <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
+
+    <section class='MainMenu-links'>
+      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
+      <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>
+    <!-- <a href='/talks' class='NavBtn' id='NavBtnTalks'>Talks</a> -->
+    <!-- <a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a> -->
+
+      <a class='NavBtn NavBtn--close' data-toggle-modal-menu>✕</a>
+    </nav>
+  </nav>
+
+  
+</header>
+
+
+    <main>
+        <article class='ContentBody'>
+    <h1>Stop forgetting your foreign key indexes in Rails with this simple post-migration script</h1>
+    <h2 class='PostMeta'>
+      <time datetime="2017-01-18" pubdate="true">18th January 2017</time> – 
+      <a href='#comments' data-disqus-url='http://alexpeattie.com/blog/stop-forgetting-foreign-key-indexes-in-rails-post-migration-script/'>comments</a>
+    </h2>
+    <p>One of our New Year's resolutions at <a href="https://peg.co">Peg</a> was to make the site faster. For the most part the site was responsive (requests completed in &lt; 100ms), but certain pages were taking much longer to load than they should - with database queries eating up most of the time.</p>
+
+<p>I quickly discovered one source of slowdown: not all of our foreign keys were indexed. About 40% of our foreign keys (46 out of 116) weren't 😱, which was causing a Rails' performance to degrade noticeably for some queries. The fix was very quick: a mega migration with 46 <code>add_index</code> statements. But how could I stop the problem going forward?</p>
+
+<h3 id="why-we-were-missing-foreign-key-indexes">Why we were missing foreign key indexes</h3>
+
+<p><strong>Foreign keys should always be indexed</strong> - Tom Ward gives a great explanation of why in <a href="https://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">this post</a>. So what were we playing at? Human error was to blame - in many instances we'd added the foreign keys as <code>integer</code>s rather than (following best practice) as <code>references</code>. To recap the difference, if I say:</p>
+
+<div class="codehilite shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>bin/rails g migration AddRegionIdToAddresses region_id:integer
+</pre></td></tr></tbody></table>
+</div>
+
+<p>Rails makes no assumptions about what kind of integer column <code>region_id</code> is, and won't index it. But, in all likelihood, I'll be querying addresses based which region they belong to (<em>Return addresses where <code>region_id = X</code></em>) which is going to be slow without an index. If I instead do:</p>
+
+<div class="codehilite shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5</pre></td><td class="code"><pre>bin/rails g migration AddRegionIdToAddresses region_id:references
+
+<span class="c"># or</span>
+
+bin/rails g migration AddRegionIdToAddresses region_id:belongs_to
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The index will be automatically created. Note, that everything else works if your foreign key is a plain ol' integer, so it's an easy mixup to make.</p>
+
+<h3 id="automatically-warning-about-missing-foreign-key-indexes">Automatically warning about missing foreign key indexes</h3>
+
+<p>Prevention is better than a cure, so I whipped up a quick script to keep an eye on missing foreing key indexes going forward. Rake offers a very handy <code>enhance</code> method which lets you add behavior that runs after an existing task. In our case, we extended the <code>db:migrate</code> task to <strong>check for any unindexed foreign keys and promptly warn the developer</strong>:</p>
+
+<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></td><td class="code"><pre><span class="no">Rake</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="s1">'db:migrate'</span><span class="p">].</span><span class="nf">enhance</span> <span class="k">do</span>
+  <span class="n">tables</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">tables</span>
+  <span class="n">all_foreign_keys</span> <span class="o">=</span> <span class="n">tables</span><span class="p">.</span><span class="nf">flat_map</span> <span class="k">do</span> <span class="o">|</span><span class="n">table_name</span><span class="o">|</span>
+    <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">columns</span><span class="p">(</span><span class="n">table_name</span><span class="p">).</span><span class="nf">map</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="p">[</span><span class="n">table_name</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="nf">name</span><span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span> <span class="p">}</span>
+  <span class="k">end</span><span class="p">.</span><span class="nf">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="n">c</span><span class="p">.</span><span class="nf">ends_with?</span><span class="p">(</span><span class="s1">'_id'</span><span class="p">)</span> <span class="p">}</span>
+
+  <span class="n">indexed_columns</span> <span class="o">=</span> <span class="n">tables</span><span class="p">.</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">table_name</span><span class="o">|</span>
+    <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">indexes</span><span class="p">(</span><span class="n">table_name</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">index</span><span class="o">|</span>
+      <span class="n">index</span><span class="p">.</span><span class="nf">columns</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="p">[</span><span class="n">table_name</span><span class="p">,</span> <span class="n">c</span><span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span><span class="p">.</span><span class="nf">flatten</span>
+
+  <span class="n">unindexed_foreign_keys</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_foreign_keys</span> <span class="o">-</span> <span class="n">indexed_columns</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">unindexed_foreign_keys</span><span class="p">.</span><span class="nf">any?</span>
+    <span class="nb">warn</span> <span class="s2">"WARNING: The following foreign key columns don't have an index, which can hurt performance: </span><span class="si">#{</span> <span class="n">unindexed_foreign_keys</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span> <span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The code is quite straightforward: we iterate through every column of every table, and select those that end in <code>_id</code>; this is quite a naive way to identify foreign keys, but worked AOK for us. Then we loop through our indexes, and names of the columns they're indexing. If there are any foreign keys which aren't in the list of indexed columns, we output a warning. To install, just save the script as, say, <code>post_migration_index_checker.rake</code> and put it in your <code>libs/tasks</code> directory. Here's the script in action:</p>
+
+<video autoplay="" loop="" poster="http://i.imgur.com/hRYOSiq.jpg" style="width: 100%">
+  <source src="http://i.imgur.com/hRYOSiq.webm" type="video/webm" />
+  <source src="http://i.imgur.com/hRYOSiq.mp4" type="video/mp4" />
+</video>
+
+<p>I'm always interested in creative ways to nudge developers towards best practices. Has something similar worked well in your company? Let me know by leaving a comment, <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#109;&#101;&#064;&#097;&#108;&#101;&#120;&#112;&#101;&#097;&#116;&#116;&#105;&#101;&#046;&#099;&#111;&#109;">dropping me a line</a> or pinging me on Twitter <a href="https://twitter.com/alexpeattie">@alexpeattie</a>.</p>
+
+  </article>
+  
+  <article class='Comments'>
+  <h2 id='comments'>Comments</h2>
+
+  <div id='disqus_thread'>
+  </div>
+
+  <script>
+    var disqus_shortname = 'alexpeattie';
+    var disqus_url = 'http://alexpeattie.com/blog/stop-forgetting-foreign-key-indexes-in-rails-post-migration-script/';
+    var disqus_identifier = '2017 01 18 stop forgetting foreign key indexes in rails post migration script';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+      var s = document.createElement('script'); s.async = true; s.type = 'text/javascript';
+      s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq).appendChild(s);
+    })();
+  </script>
+</article>
+
+    </main>
+
+    <section class='SourceCallout'>
+    <!--  <p>This site is open-source (<a href='/projects#site'>more info</a>) - here's <a href="https://github.com/alexpeattie/alexpeattie.com/blob/master/source/blog/2017-01-18-stop-forgetting-foreign-key-indexes-in-rails-post-migration-script.html.md">the source code for this page</a></a>.</p>-->
+    </section>
+
+    <footer>
+      <p>© 2018 Emil Karlsson. Questions? Email <a href='mailto:me@emilingemarkarlsson@gmail.com'>emilingemarkarlsson@gmail.com</a>
+      </p>
+    </footer>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-116235734-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

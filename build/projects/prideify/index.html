@@ -1,0 +1,312 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+    <meta charset='utf-8'>
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport'>
+    <meta name='description' content="Inspired by facebook.com/celebratepride - a super-lightweight library (&lt; 100 lines of code) to “prideify” any image using the &lt;canvas&gt; element. Licensed under MIT.">
+    
+
+    <title>prideify.js - Alex Peattie</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32-18545059.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192-62275dc0.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16-13aa2390.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab-b8c45f01.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ff0000">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ff0000">
+
+    <link href="/assets/css/all-a7a0038a.css" rel="stylesheet" />
+    <script src="/assets/js/all-a1da6af5.js"></script><script src="/assets/js/projects/prideify/prideify-e6d6157e.js"></script><script src="/assets/js/projects/prideify/demo-71aca296.js"></script>
+  </head>
+
+  <body class='projects projects_prideify projects_prideify_index'>
+    <header>
+  <nav class='MainMenu'>
+    <a href='/' class='Logo'>
+      <span>emil</span>karlsson
+    </a>
+
+    <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
+
+    <section class='MainMenu-links'>
+      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
+      <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>
+    <!-- <a href='/talks' class='NavBtn' id='NavBtnTalks'>Talks</a> -->
+    <!-- <a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a> -->
+
+      <a class='NavBtn NavBtn--close' data-toggle-modal-menu>✕</a>
+    </nav>
+  </nav>
+
+  
+</header>
+
+
+    <main>
+        <article class='ContentBody'>
+    <h1 id="prideifyjsprojectsprideifylogopng"><img alt="prideify.js" src="/assets/images/projects/prideify/logo-469cc22b.png" /></h1>
+
+<p class="u-centerText" role="menu"><a class="Btn Btn--large Btn--source" href="https://github.com/alexpeattie/prideify">Source</a></p>
+
+<p>Inspired by <a href="https://facebook.com/celebratepride">facebook.com/celebratepride</a> - a super-lightweight library (&lt; 100 lines of code) to “prideify” any image using the <code>&lt;canvas&gt;</code> element. Licensed under <a href="https://github.com/alexpeattie/prideify/blob/master/LICENSE">MIT</a>.</p>
+
+<p>And to boot, there are no external dependencies, although it does integrate with jQuery when it's present 😊.</p>
+
+<p><img alt="5 example images of prideify.js in action" src="/assets/images/projects/prideify/header-9b8e2ef2.png" /></p>
+
+<h2 id="demo">Demo</h2>
+
+<section class="prideify-Dropzone" data-prideify-dropzone="">
+  <img src="/assets/images/projects/prideify/placeholder-8a84e6e2.svg" />
+  <p>Drag and drop an image here.</p>
+</section>
+
+<p class="u-centerText">
+  <input type="url" class="prideify-UrlEntry" placeholder="Or enter an image's URL here..." data-prideify-url-fetch="" />
+</p>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="quickstart">Quickstart</h3>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7</pre></td><td class="code"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/dave.jpg'</span> <span class="na">class=</span><span class="s">'profile-pic'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/jenny.jpg'</span> <span class="na">class=</span><span class="s">'profile-pic'</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">'prideify.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">Prideify</span><span class="p">(</span><span class="s1">'.profile-pic'</span><span class="p">);</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h4 id="with-jquery">With jQuery</h4>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8</pre></td><td class="code"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/dave.jpg'</span> <span class="na">class=</span><span class="s">'profile-pic'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/jenny.jpg'</span> <span class="na">class=</span><span class="s">'profile-pic'</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">'jquery.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">'prideify.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">$</span><span class="p">(</span><span class="s1">'.profile-pic'</span><span class="p">).</span><span class="nx">prideify</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="more-examples">More examples</h3>
+
+<p>If you call <code>Prideify</code> without any arguments, any image with the <code>data-prideify</code> attribute set will be processed:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'/jenny.jpg'</span> <span class="na">data-pridefied</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">Prideify</span><span class="p">();</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>If you are trying to call <code>Prideify</code> with an image <strong>not hosted on your server</strong>, you'll probably need to set the <code>crossOriginProxy</code> option to <code>true</code>, to avoid browser restrictions regarding the canvas element (see more under <a href="#">Configuration options</a>):</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4</pre></td><td class="code"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'http://example.com/jenny.jpg'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">Prideify</span><span class="p">(</span><span class="s1">'img'</span><span class="p">,</span> <span class="p">{</span> <span class="na">crossOriginProxy</span><span class="p">:</span> <span class="kc">true</span> <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>By default Prideify will add a CSS class <code>'prideify'</code> after the image is rendered. You can use a different CSS class by setting the <code>renderedClass</code> option:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">Prideify</span><span class="p">(</span><span class="s1">'img'</span><span class="p">,</span> <span class="p">{</span> <span class="na">renderedClass</span><span class="p">:</span> <span class="s1">'some-custom-class'</span> <span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>If you want something to happen after the image has been rendered, you can use the <code>afterRender</code> option. The newly rendered image will be passed into the callback function:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">'http://example.com/jenny.jpg'</span> <span class="na">id=</span><span class="s">'jenny'</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script&gt;</span>
+  <span class="nx">Prideify</span><span class="p">(</span><span class="s1">'#jenny'</span><span class="p">,</span> <span class="p">{</span> <span class="na">afterRender</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">image</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Image rendered"</span><span class="p">)</span>
+  <span class="p">}</span> <span class="p">});</span>
+<span class="nt">&lt;/script&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The first argument passed to <code>Prideify</code> can be a selector, image element, array of elements or jQuery collection:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="nx">Prideify</span><span class="p">(</span><span class="s1">'img.profile-pic'</span><span class="p">);</span>
+<span class="nx">Prideify</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'img.profile-pic'</span><span class="p">));</span>
+<span class="nx">Prideify</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'jenny'</span><span class="p">));</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<h3 id="arguments">Arguments</h3>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">Pridefy</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="p">[</span><span class="nx">options</span><span class="p">]);</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<ul class="ArgumentSpec">
+  <li><strong>target</strong> (optional)</li>
+  <li>Default: <code>'[date-prideify]'</code></li>
+  <li>Type: <code>DOMElement</code>, array of <code>DOMElement</code>s, jQuery collection or CSS selector</li>
+</ul>
+
+<p>The image or collection of images you want to prideify. Alternatively you can pass a selector, in which case anything matching the selector will be prideified.</p>
+
+<p>If left blank, all images with <code>data-prideify</code> attributes (e.g. it defaults to the CSS selector <code>'[data-prideify]'</code>).</p>
+
+<ul class="ArgumentSpec">
+  <li><strong>options</strong> (optional)</li>
+  <li>Default: <code>{}</code></li>
+  <li>Type: Object</li>
+</ul>
+
+<p>Additional configuration options - see below.</p>
+
+<h3 id="configuration-options">Configuration options</h3>
+
+<ul class="ArgumentSpec">
+  <li><strong>renderedClass</strong></li>
+  <li>Default: <code>'prideified'</code></li>
+  <li>Type: String</li>
+</ul>
+
+<p>A class that will be added the the <code>&lt;img&gt;</code> element after the image has been rendered successfully.</p>
+
+<ul class="ArgumentSpec">
+  <li><strong>crossOriginProxy</strong></li>
+  <li>Default: <code>false</code></li>
+  <li>Type: Boolean or string</li>
+</ul>
+
+<p>Due to browser restrictions, you won't be able to use prideify normally with most image that are not hosted on your domain (unless the image host has been kind enough to set <code>Access-Control-Allow-Origin</code> to <code>*</code>). You can learn more about cross-origin security and the <code>&lt;canvas&gt;</code> in <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image">this MDN article</a>.</p>
+
+<p>Setting crossOriginProxy to true will load the image via <a href="http://crossorigin.me">http://crossorigin.me</a>, thereby avoid cross-origin restrictions. If you want to use a different proxy, you can pass its URL as a string.</p>
+
+<ul class="ArgumentSpec">
+  <li><strong>customStripes</strong></li>
+  <li>Default: <code>undefined</code></li>
+  <li>Type: Array of arrays</li>
+</ul>
+
+<p>If you don't want to use the default colors, or want extra or fewer stripes, you can set use a <code>customStripes</code> array. This is a nested array of arrays, each containing the RGB values of each stripe:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3</pre></td><td class="code"><pre><span class="nx">Prideify</span><span class="p">(</span><span class="s1">'.profile-pic'</span><span class="p">,</span> <span class="p">{</span> 
+  <span class="na">customStripes</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">]]</span> 
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>The above would overlay two stripes - a black one, and a white one - admittedly not very exciting!</p>
+
+<ul class="ArgumentSpec">
+  <li><strong>afterRender</strong></li>
+  <li>Default: undefined</li>
+  <li>Type: Function</li>
+</ul>
+
+<p>A callback function that will run after the image has been rendered. The new image will be passed as the sole argument to the callback function.</p>
+
+<h2 id="download">Download</h2>
+
+<p class="u-centerText"><a class="Btn Btn--large Btn--cta" href="https://github.com/alexpeattie/prideify/archive/master.zip">Download (.zip)</a></p>
+
+<h2 id="todo">Todo</h2>
+
+<p>Better error handling 😇, bookmarklet, Bower support.</p>
+
+<h2 id="credits">Credits</h2>
+
+<p>Thanks to Facebook and the LGBT community for the inspiration and to <a href="https://github.com/technoboy10">technoboy10</a> for the awesome CORS proxy.</p>
+
+<p>Sent into the world with the blessing of <a href="https://peg.co">Peg</a>!</p>
+
+<h1 id="rainbow-pegprojectsprideifypegpng-prideify-peg-"><img alt="Rainbow peg" class="prideify-Peg" src="/assets/images/projects/prideify/peg-a692a79e.png" /></h1>
+
+  </article>
+
+  <!--<article class='Comments'>
+  <h2 id='comments'>Comments</h2>
+
+  <div id='disqus_thread'>
+  </div>
+
+  <script>
+    var disqus_shortname = 'alexpeattie';
+    var disqus_url = 'http://alexpeattie.com/projects/prideify/';
+    var disqus_identifier = 'Prideify';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+      var s = document.createElement('script'); s.async = true; s.type = 'text/javascript';
+      s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq).appendChild(s);
+    })();
+  </script>
+</article>-->
+
+    </main>
+
+    <section class='SourceCallout'>
+    <!--  <p>This site is open-source (<a href='/projects#site'>more info</a>) - here's <a href="https://github.com/alexpeattie/alexpeattie.com/blob/master/source/projects/prideify.html.md">the source code for this page</a></a>.</p>-->
+    </section>
+
+    <footer>
+      <p>© 2018 Emil Karlsson. Questions? Email <a href='mailto:me@emilingemarkarlsson@gmail.com'>emilingemarkarlsson@gmail.com</a>
+      </p>
+    </footer>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-116235734-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
