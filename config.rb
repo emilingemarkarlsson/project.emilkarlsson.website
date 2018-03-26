@@ -21,7 +21,6 @@ files.watch :source, path: File.join(root, 'source', 'assets', 'favicons'), prio
 
 sprockets.append_path File.join(root, 'bower_components')
 
-
 activate :blog do |blog|
   blog.prefix = 'blog/'
   blog.permalink = ':title.html'
@@ -46,6 +45,6 @@ configure :development do
 end
 
 # Redirects
-redirect 'projects/justvector_icons.html', to: '/projects/tuva'
+redirect 'projects/justvector_icons.html', to: '/projects/justvector-icons'
 redirect 'projects/animate-textshadow.html', to: '/projects#legacy'
 redirect 'projects/feedback_button.html', to: '/projects#legacy'
