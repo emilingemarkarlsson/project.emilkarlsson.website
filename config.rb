@@ -2,13 +2,8 @@ require 'helpers/summary'
 require 'rack/rewrite'
 
 configure :development do
+  activate :livereload
 end
-
-# Use “pretty” URLs (without the `.html` suffix)
-activate :directory_indexes
-
-# Append hashes to compiled assets
-activate :asset_hash
 
 set :css_dir, 'assets/css'
 set :js_dir, 'assets/js'

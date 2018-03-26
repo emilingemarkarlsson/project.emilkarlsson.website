@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+  <head>
+    <meta content='IE=edge' http-equiv='X-UA-Compatible'>
+    <meta charset='utf-8'>
+    <meta content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no' name='viewport'>
+    <meta name='description' content="I wanted to highlight a couple of APIs which I&#39;ve found very useful, but haven&#39;t seemed to have gotten much exposure: SharedCount and RESTMailer. I have no connection to these services, I just think they&#39;re great!">
+    
+
+    <title>Two awesome APIs you probably haven't heard of: SharedCount and RESTMailer - Alex Peattie</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ff0000">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ff0000">
+
+    <link href="/assets/css/all.css" rel="stylesheet" />
+    <script src="/assets/js/all.js"></script>
+  </head>
+
+  <body class='blog blog_two-awesome-apis-sharedcount-restmailer'>
+    <header>
+  <nav class='MainMenu'>
+    <a href='/' class='Logo'>
+      <span>emil</span>karlsson
+    </a>
+
+    <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
+
+    <section class='MainMenu-links'>
+      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
+      <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>
+    <!-- <a href='/talks' class='NavBtn' id='NavBtnTalks'>Talks</a> -->
+    <!-- <a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a> -->
+
+      <a class='NavBtn NavBtn--close' data-toggle-modal-menu>✕</a>
+    </nav>
+  </nav>
+
+  
+</header>
+
+
+    <main>
+        <article class='ContentBody'>
+    <h1>Two awesome APIs you probably haven't heard of: SharedCount and RESTMailer</h1>
+    <h2 class='PostMeta'>
+      <time datetime="2012-12-03" pubdate="true">3rd December 2012</time> – 
+      <a href='#comments' data-disqus-url='http://alexpeattie.com/blog/two-awesome-apis-sharedcount-restmailer.html'>comments</a>
+    </h2>
+    <p>I wanted to highlight a couple of APIs which I've found very useful, but haven't seemed to have gotten much exposure: SharedCount and RESTMailer. I have no connection to these services, I just think they're great!</p>
+
+<h2 id="sharecount">ShareCount</h2>
+
+<p><img alt="Share buttons" src="/assets/images/posts/two-awesome-apis-sharedcount-restmailer/buttons.png" /></p>
+
+<p>Social sharing buttons (pictured above) are all the rage these days. The problem is they're generally loaded in an <code>&lt;iframe&gt;</code>, which means you don't have any control over their styling or behaviour. It's possible to make custom sharing buttons (as you see on this site) - but it's tricky to recreate the official buttons' dynamic share count.</p>
+
+<p>The problem is that the different APIs for Facebook, Twitter, Google+ etc. all provide different methods for fetching a page's share count. <a href="https://gist.github.com/jonathanmoore/2640302">This Gist</a> gives a taste of what a headache fetching the various stats can be.</p>
+
+<p>This is where <a href="http://sharedcount.com/">SharedCount</a> comes in handy. Just pass in the url of your page, and you get a breakdown of share counts across a bunch of services:</p>
+
+<div class="codehilite json"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></td><td class="code"><pre><span class="s2">"http://api.sharedcount.com/?url=http%3A%2F%2Fwww.alexpeattie.com%2Fprojects%2Fjustvector_icons%2F"</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="nt">"StumbleUpon"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Reddit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Facebook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"commentsbox_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"click_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"total_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">177</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"comment_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"like_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"share_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"Delicious"</span><span class="p">:</span><span class="w"> </span><span class="mi">245</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"GooglePlusOne"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Buzz"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Twitter"</span><span class="p">:</span><span class="w"> </span><span class="mi">465</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Diggs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"Pinterest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"LinkedIn"</span><span class="p">:</span><span class="w"> </span><span class="mi">211</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></pre></td></tr></tbody></table>
+</div>
+
+<p>SharedCount supports JSONP and has built in caching, HTTP and HTTPS endpoints and a generous 100,000 req/day limit.</p>
+
+<h2 id="restmailer">RESTMailer</h2>
+
+<p>Adding a contact form to an otherwise static site is a common problem. Often sites will use a service like <a href="http://www.foxyform.com/">Foxyform</a> or <a href="http://www.jotform.com/">JotForm</a> to embed a 3rd-party contact form. Again we have the same problems as above: a lack of control over styling and behaviour.</p>
+
+<p><a href="http://restmailer.mihirgarimella.com/">RESTMailer</a> offers a much better alternative. You build your own form in vanilla HTML, and style it however you want:</p>
+
+<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6</pre></td><td class="code"><pre><span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"contact-form"</span> <span class="na">action=</span><span class="s">""</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Your Name"</span> <span class="na">name=</span><span class="s">"name"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Your Email Address"</span> <span class="na">name=</span><span class="s">"email"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Subject"</span> <span class="na">name=</span><span class="s">"subject"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Send<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>and then you can send your email with a <code>$.post</code> request to RESTMailer's API:</p>
+
+<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#contact-form'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'submit'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+    <span class="na">type</span><span class="p">:</span><span class="s1">'POST'</span><span class="p">,</span>
+    <span class="na">url</span><span class="p">:</span> <span class="s1">'http://restmailer-mihir.rhcloud.com/send/[USERNAME]'</span><span class="p">,</span>
+    <span class="na">data</span><span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#contact-form'</span><span class="p">).</span><span class="nx">serialize</span><span class="p">(),</span>
+    <span class="na">dataType</span><span class="p">:</span><span class="s1">'text'</span><span class="p">,</span>
+    <span class="na">success</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="nx">alert</span><span class="p">(</span><span class="s1">'Message sent!'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></td></tr></tbody></table>
+</div>
+
+<p>RESTMailer also handily offers (optional) server-side validation.</p>
+
+  </article>
+  
+  <article class='Comments'>
+  <h2 id='comments'>Comments</h2>
+
+  <div id='disqus_thread'>
+  </div>
+
+  <script>
+    var disqus_shortname = 'alexpeattie';
+    var disqus_url = 'http://alexpeattie.com/blog/two-awesome-apis-sharedcount-restmailer.html';
+    var disqus_identifier = '2012 12 03 two awesome apis sharedcount restmailer';
+
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+      var s = document.createElement('script'); s.async = true; s.type = 'text/javascript';
+      s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq).appendChild(s);
+    })();
+  </script>
+</article>
+
+    </main>
+
+    <section class='SourceCallout'>
+    <!--  <p>This site is open-source (<a href='/projects#site'>more info</a>) - here's <a href="https://github.com/alexpeattie/alexpeattie.com/blob/master/source/blog/2012-12-03-two-awesome-apis-sharedcount-restmailer.html.md">the source code for this page</a></a>.</p>-->
+    </section>
+
+    <footer>
+      <p>© 2018 Emil Karlsson. Questions? Email <a href='mailto:me@emilingemarkarlsson@gmail.com'>emilingemarkarlsson@gmail.com</a>
+      </p>
+    </footer>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-116235734-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
