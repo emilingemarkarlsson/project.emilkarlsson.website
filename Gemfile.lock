@@ -143,6 +143,7 @@ DEPENDENCIES
   middleman-livereload
   middleman-sprockets (= 4.0.0.rc.1)
   middleman-syntax
+  nokogiri
   rack-rewrite
   sanitize
   tzinfo-data
