@@ -67,38 +67,36 @@
 
 <p>But <code>console.log</code> statements can potentially break things - IE8 and below will throw a JS error (unless the Developer Console is active), which effectively halting the execution of your Javascript. One solution<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> to this is to create an empty <code>console.log</code> function if it doesn't exist:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="c1">// Stop console.log causing failures in IE</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="c1">// Stop console.log causing failures in IE</span>
 <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">console</span> <span class="o">===</span> <span class="s2">"undefined"</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">===</span> <span class="s2">"undefined"</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span> <span class="o">=</span> <span class="p">{};</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>The console should really just be used for development purposes - but if you don't want to meticulously remove every <code>console.log</code> statement from your production site, you can use the same trick:</p>
 
-<div class="codehilite erb"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite erb"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre>// In a .js.erb file in Rails
+5
+</pre></td><td class="rouge-code"><pre>// In a .js.erb file in Rails
 <span class="cp">&lt;%</span> <span class="k">if</span> <span class="no">Rails</span><span class="p">.</span><span class="nf">env</span><span class="p">.</span><span class="nf">production?</span> <span class="cp">%&gt;</span>
   console = {};
   console.log = function() {};
 <span class="cp">&lt;%</span> <span class="k">end</span> <span class="cp">%&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="footnotes">Footnotes</h2>
 
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>Another good solution is Paul Irish's <a href="http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/">log() wrapper</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p>Another good solution is Paul Irish's <a href="http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/">log() wrapper</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

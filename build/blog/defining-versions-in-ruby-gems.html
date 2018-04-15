@@ -67,21 +67,20 @@
 
 <p>By far the simplest method is to just hardcode the version number in your <code>.gemspec</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="c1"># mygem.gemspec</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># mygem.gemspec</span>
 <span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
   <span class="n">s</span><span class="p">.</span><span class="nf">name</span>        <span class="o">=</span> <span class="s2">"mygem"</span>
   <span class="n">s</span><span class="p">.</span><span class="nf">version</span>     <span class="o">=</span> <span class="s2">"1.0.0"</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>But you'll often see gems instead defining the version in a separate file, then <code>require</code>'ing it in the <code>.gemspec</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -93,7 +92,8 @@
 10
 11
 12
-13</pre></td><td class="code"><pre><span class="c1"># lib/mygem/version.rb</span>
+13
+</pre></td><td class="rouge-code"><pre><span class="c1"># lib/mygem/version.rb</span>
 <span class="k">module</span> <span class="nn">Mygem</span>
   <span class="no">VERSION</span> <span class="o">=</span> <span class="s2">"1.0.0"</span>
 <span class="k">end</span>
@@ -106,12 +106,10 @@
   <span class="n">s</span><span class="p">.</span><span class="nf">name</span>        <span class="o">=</span> <span class="s2">"mygem"</span>
   <span class="n">s</span><span class="p">.</span><span class="nf">version</span>     <span class="o">=</span> <span class="no">Mygem</span><span class="o">::</span><span class="no">VERSION</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>More code for the apparently same effect, so what are the advantages of the more verbose method? Well, for one, we can easily access the gem's version easily with the <code>Mygem::VERSION</code>. This can come in handy for 3rd party apps - for instance, this Devise patch which targets specific versions (<a href="https://gist.github.com/parndt/4660837">source</a>):</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -129,7 +127,8 @@
 16
 17
 18
-19</pre></td><td class="code"><pre><span class="c1"># config/initializers/devise_patch.rb</span>
+19
+</pre></td><td class="rouge-code"><pre><span class="c1"># config/initializers/devise_patch.rb</span>
 <span class="nb">require</span> <span class="s1">'devise/version'</span>
 <span class="k">if</span> <span class="o">!</span><span class="n">defined?</span><span class="p">(</span><span class="no">Devise</span><span class="o">::</span><span class="no">VERSION</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="no">Devise</span><span class="o">::</span><span class="no">VERSION</span> <span class="o">&lt;</span> <span class="s2">"1.4.0"</span> <span class="o">&amp;&amp;</span> <span class="sx">%w[1.2 1.3]</span><span class="p">.</span><span class="nf">all?</span> <span class="p">{</span><span class="o">|</span><span class="n">v</span><span class="o">|</span> <span class="o">!</span><span class="no">Devise</span><span class="o">::</span><span class="no">VERSION</span><span class="p">.</span><span class="nf">start_with?</span><span class="p">(</span><span class="n">v</span><span class="p">)})</span>
   <span class="k">raise</span> <span class="s2">"I don't know how to patch your devise version. See http://blog.plataformatec.com.br/2013/01/security-announcement-devise-v2-2-3-v2-1-3-v2-0-5-and-v1-5-3-released/"</span>
@@ -140,7 +139,7 @@
   <span class="no">Devise</span><span class="o">::</span><span class="no">Models</span><span class="o">::</span><span class="no">Authenticatable</span><span class="o">::</span><span class="no">ClassMethods</span><span class="p">.</span><span class="nf">class_eval</span> <span class="k">do</span>
     <span class="k">def</span> <span class="nf">auth_param_requires_string_conversion?</span><span class="p">(</span><span class="n">value</span><span class="p">);</span> <span class="kp">true</span><span class="p">;</span> <span class="k">end</span>
   <span class="k">end</span>
-<span class="k">elsif</span> <span class="p">[(</span><span class="s2">"1.5.0"</span><span class="p">.</span><span class="nf">.</span><span class="s2">"1.5.3"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"2.0.0"</span><span class="p">.</span><span class="nf">.</span><span class="s2">"2.0.4"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"2.1.0"</span><span class="p">.</span><span class="nf">.</span><span class="s2">"2.1.2"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"2.2.0"</span><span class="p">.</span><span class="nf">.</span><span class="s2">"2.2.2"</span><span class="p">)].</span><span class="nf">any?</span> <span class="p">{</span> <span class="o">|</span><span class="n">range</span><span class="o">|</span>
+<span class="k">elsif</span> <span class="p">[(</span><span class="s2">"1.5.0"</span><span class="o">..</span><span class="s2">"1.5.3"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"2.0.0"</span><span class="o">..</span><span class="s2">"2.0.4"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"2.1.0"</span><span class="o">..</span><span class="s2">"2.1.2"</span><span class="p">),</span> <span class="p">(</span><span class="s2">"2.2.0"</span><span class="o">..</span><span class="s2">"2.2.2"</span><span class="p">)].</span><span class="nf">any?</span> <span class="p">{</span> <span class="o">|</span><span class="n">range</span><span class="o">|</span>
   <span class="n">range</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="no">Devise</span><span class="o">::</span><span class="no">VERSION</span><span class="p">)</span>
 <span class="p">}</span>
   <span class="nb">warn</span> <span class="s2">"Patching devise </span><span class="si">#{</span><span class="no">Devise</span><span class="o">::</span><span class="no">VERSION</span><span class="si">}</span><span class="s2"> with &lt; 2.2.3 patch"</span>
@@ -148,28 +147,24 @@
     <span class="k">def</span> <span class="nf">param_requires_string_conversion?</span><span class="p">(</span><span class="n">_value</span><span class="p">);</span> <span class="kp">true</span><span class="p">;</span> <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Also if we wanted to see Git commits that changed the gem's version, we could run:</p>
 
-<div class="codehilite plaintext"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>git log version.rb
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite plaintext"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>git log version.rb
+</pre></td></tr></tbody></table></code></pre></div>
 <p>A couple of further tips - it's not a bad idea to use <code>.freeze</code> to stop <code>Mygem::VERSION</code> getting overwritten accidentally:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="k">module</span> <span class="nn">Mygem</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="k">module</span> <span class="nn">Mygem</span>
   <span class="no">VERSION</span> <span class="o">=</span> <span class="s2">"1.0.0"</span><span class="p">.</span><span class="nf">freeze</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Some gems (including <a href="https://github.com/rails/rails/blob/master/version.rb">Rails</a>) break down the version number into <code>MAJOR</code>, <code>MINOR</code> and <code>TINY</code> (or <code>PATCH</code>) releases:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -177,7 +172,8 @@
 6
 7
 8
-9</pre></td><td class="code"><pre><span class="k">module</span> <span class="nn">Mygem</span>
+9
+</pre></td><td class="rouge-code"><pre><span class="k">module</span> <span class="nn">Mygem</span>
   <span class="k">module</span> <span class="nn">VERSION</span>
     <span class="no">MAJOR</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="no">MINOR</span> <span class="o">=</span> <span class="mi">0</span>
@@ -186,9 +182,7 @@
     <span class="no">STRING</span> <span class="o">=</span> <span class="p">[</span><span class="no">MAJOR</span><span class="p">,</span> <span class="no">MINOR</span><span class="p">,</span> <span class="no">TINY</span><span class="p">].</span><span class="nf">compact</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>This is handy if you're following <a href="http://semver.org/">semantic versioning</a>.</p>
 
   </article>

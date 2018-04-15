@@ -71,30 +71,28 @@
 
 <p>This means, that if we have code like this:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4</pre></td><td class="code"><pre><span class="nx">$elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">"visibility"</span><span class="p">,</span> <span class="s2">"hidden"</span><span class="p">)</span>
-
-<span class="k">if</span><span class="p">(</span><span class="nx">$elem</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">":hidden"</span><span class="p">))</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"ELEM IS HIDDEN"</span><span class="p">);</span>
-<span class="k">if</span><span class="p">(</span><span class="nx">$elem</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">":visible"</span><span class="p">))</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"ELEM IS VISIBLE"</span><span class="p">);</span>
-</pre></td></tr></tbody></table>
-</div>
-
-<p>We'll (incorrectly) be told "ELEM IS VISIBLE". To take <code>opacity</code> and <code>visibility</code> into account, you'll have to do something like this:</p>
-
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="k">if</span><span class="p">(</span><span class="nx">$elem</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">":hidden"</span><span class="p">)</span> <span class="o">||</span> <span class="nx">$elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">"visibility"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"hidden"</span> <span class="o">||</span> <span class="nx">$</span><span class="p">.</span><span class="nx">elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">"opacity"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">"visibility"</span><span class="p">,</span> <span class="s2">"hidden"</span><span class="p">)</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">$elem</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">":hidden"</span><span class="p">))</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"ELEM IS HIDDEN"</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">$elem</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">":visible"</span><span class="p">))</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">"ELEM IS VISIBLE"</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div>
+<p>We'll (incorrectly) be told "ELEM IS VISIBLE". To take <code>opacity</code> and <code>visibility</code> into account, you'll have to do something like this:</p>
+
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">if</span><span class="p">(</span><span class="nx">$elem</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">":hidden"</span><span class="p">)</span> <span class="o">||</span> <span class="nx">$elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">"visibility"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"hidden"</span> <span class="o">||</span> <span class="nx">$</span><span class="p">.</span><span class="nx">elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s2">"opacity"</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">alert</span><span class="p">(</span><span class="s2">"ELEM IS HIDDEN"</span><span class="p">)</span>
 <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
   <span class="nx">alert</span><span class="p">(</span><span class="s2">"ELEM IS VISIBLE"</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
   </article>
   
   <article class='Comments'>

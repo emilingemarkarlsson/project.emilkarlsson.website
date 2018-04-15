@@ -67,38 +67,35 @@
 
 <p>Why <code>$ctrl</code>? You can see the original (well-reasoned) discussion <a href="https://github.com/angular/angular.js/issues/13664">on Github</a>. However, <a href="https://github.com/johnpapa/angular-styleguide#style-y032">John Papa recommends</a> using <code>vm</code> (short for view-model) and if you're like me, you'll find yourself doing this a lot:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-4</pre></td><td class="code"><pre><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">'myCoolComponent'</span><span class="p">,</span> <span class="p">{</span>
+4
+</pre></td><td class="rouge-code"><pre><span class="p">.</span><span class="nx">component</span><span class="p">(</span><span class="s1">'myCoolComponent'</span><span class="p">,</span> <span class="p">{</span>
   <span class="na">controllerAs</span><span class="p">:</span> <span class="s1">'vm'</span><span class="p">,</span>
   <span class="na">bindings</span><span class="p">:</span> <span class="p">{</span> <span class="p">...</span> <span class="p">}</span>
 <span class="p">})</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Luckily it's quite easy to override the <code>.component()</code> helper in your application, to default to something other than <code>$ctrl</code>. You'll want to do this at the point you're defining your application's module:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngAnimate'</span><span class="p">,</span> <span class="s1">'ngTouch'</span><span class="p">]);</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngAnimate'</span><span class="p">,</span> <span class="s1">'ngTouch'</span><span class="p">]);</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Becomes:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngAnimate'</span><span class="p">,</span> <span class="s1">'ngTouch'</span><span class="p">]);</span>
+6
+</pre></td><td class="rouge-code"><pre><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">'myApp'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'ngAnimate'</span><span class="p">,</span> <span class="s1">'ngTouch'</span><span class="p">]);</span>
 
 <span class="kd">var</span> <span class="nx">_component</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">component</span><span class="p">;</span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">component</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nx">_component</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="na">controllerAs</span><span class="p">:</span> <span class="s1">'vm'</span> <span class="p">},</span> <span class="nx">options</span><span class="p">));</span>
 <span class="p">};</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Pretty straightforward - we save the original <code>.component()</code> helper method to a variable, then replace it with a modified method that call the original, but firsts calls <a href="https://docs.angularjs.org/api/ng/function/angular.extend"><code>angular.extend</code></a> on our <code>options</code> object to set our preferred <code>controllerAs</code> default.</p>
 
 <p>This modified method will only apply to any components defined for our app's module - any 3rd party plugins shouldn't be affected. You can see a Plunkr demonstrating this <a href="https://plnkr.co/edit/nPjov0d4ktjKuoL8bvxJ?p=preview">here</a>.</p>

@@ -73,97 +73,90 @@
 
 <p>If you are entering the exciting world of ECDSA with Ruby there are a couple of pitfalls to avoid. Let's look at the code for generating a Certificate Signing Request (CSR) with an RSA key:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="n">domain_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">RSA</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
+6
+</pre></td><td class="rouge-code"><pre><span class="n">domain_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">RSA</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">2048</span><span class="p">)</span>
 
 <span class="n">csr</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">subject</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Name</span><span class="p">.</span><span class="nf">new</span><span class="p">([[</span><span class="s1">'CN'</span><span class="p">,</span> <span class="s1">'alexpeattie.com'</span><span class="p">]])</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">domain_key</span><span class="p">.</span><span class="nf">public_key</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Ruby comes with a <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/openssl/rdoc/OpenSSL/PKey/EC.html"><code>OpenSSL::PKey::EC</code> class</a> so the optimist in us might guess we could just swap out all instances of <code>OpenSSL::PKey::RSA</code> with <code>OpenSSL::PKey::EC</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="n">ec_domain_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
+6
+</pre></td><td class="rouge-code"><pre><span class="n">ec_domain_key</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
 
 <span class="n">csr</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Request</span><span class="p">.</span><span class="nf">new</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">subject</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Name</span><span class="p">.</span><span class="nf">new</span><span class="p">([[</span><span class="s1">'CN'</span><span class="p">,</span> <span class="s1">'alexpeattie.com'</span><span class="p">]])</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">ec_domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>If only life were that simple - in fact we'll need to make a few tweaks to get our CSR working. The first problem is that the <code>public_key</code> and <code>private_key</code> aren't populated when we instantiate the <code>ec_domain_key</code>, we have to populate them with the <a href="http://ruby-doc.org/stdlib-2.3.0/libdoc/openssl/rdoc/OpenSSL/PKey/EC.html#method-i-generate_key"><code>generate_key</code></a> method:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4
-5</pre></td><td class="code"><pre><span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
-<span class="c1">#= &gt; nil</span>
-
-<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span><span class="p">;</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
-<span class="c1">#=&gt; #&lt;OpenSSL::PKey::EC::Point:0x007fdbece64f90 @group=#&lt;OpenSSL::PKey::EC::Group:0x007fdbece64fb8 @key=#&lt;OpenSSL::PKey::EC:0x007fdbece94880 @group=#&lt;OpenSSL::PKey::EC::Group:0x007fdbece64fb8 ...&gt;&gt;&gt;&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
-<p>The next problem comes when we try and set the <code>public_key</code> of the CSR:</p>
-
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
-<span class="c1"># TypeError: wrong argument (OpenSSL::PKey::EC::Point)! (Expected kind of OpenSSL::PKey::PKey)</span>
-</pre></td></tr></tbody></table>
-</div>
-
-<p>As the error message tells us, <code>ec_domain_key.public_key</code> is returning an <code>OpenSSL::PKey::EC::Point</code> which doesn't work with our CSR.</p>
-
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4
-5</pre></td><td class="code"><pre><span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">PKey</span>
-<span class="c1">#=&gt; true</span>
-
-<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">PKey</span>
-<span class="c1">#=&gt; false</span>
-</pre></td></tr></tbody></table>
-</div>
-
-<p>We could just use our whole <code>ec_domain_key</code> as our <code>csr.public_key</code> - this has no bad consequences as far as I can tell, but this would be a bit confusing: <code>ec_domain_key</code> is really a private key. A better workaround is to create a second instance of <code>OpenSSL::PKey::EC</code> to act as our public key, then copy over the public part of <code>ec_domain_key</code>:</p>
-
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="n">ec_domain_key</span><span class="p">,</span> <span class="n">ec_public</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">),</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="c1">#= &gt; nil</span>
+
+<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span><span class="p">;</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="c1">#=&gt; #&lt;OpenSSL::PKey::EC::Point:0x007fdbece64f90 @group=#&lt;OpenSSL::PKey::EC::Group:0x007fdbece64fb8 @key=#&lt;OpenSSL::PKey::EC:0x007fdbece94880 @group=#&lt;OpenSSL::PKey::EC::Group:0x007fdbece64fb8 ...&gt;&gt;&gt;&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div>
+<p>The next problem comes when we try and set the <code>public_key</code> of the CSR:</p>
+
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
+<span class="c1"># TypeError: wrong argument (OpenSSL::PKey::EC::Point)! (Expected kind of OpenSSL::PKey::PKey)</span>
+</pre></td></tr></tbody></table></code></pre></div>
+<p>As the error message tells us, <code>ec_domain_key.public_key</code> is returning an <code>OpenSSL::PKey::EC::Point</code> which doesn't work with our CSR.</p>
+
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">PKey</span>
+<span class="c1">#=&gt; true</span>
+
+<span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">PKey</span>
+<span class="c1">#=&gt; false</span>
+</pre></td></tr></tbody></table></code></pre></div>
+<p>We could just use our whole <code>ec_domain_key</code> as our <code>csr.public_key</code> - this has no bad consequences as far as I can tell, but this would be a bit confusing: <code>ec_domain_key</code> is really a private key. A better workaround is to create a second instance of <code>OpenSSL::PKey::EC</code> to act as our public key, then copy over the public part of <code>ec_domain_key</code>:</p>
+
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">ec_domain_key</span><span class="p">,</span> <span class="n">ec_public</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">),</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
 <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span>
 
 <span class="n">ec_public</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">public_key</span>
 <span class="n">ec_public</span><span class="p">.</span><span class="nf">private_key</span>
 <span class="c1">#=&gt; nil</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>The last issue is that during when we call <code>.sign</code>, Ruby internally calls the <code>.private?</code> method on our signing keys. The problem is that for <code>OpenSSL::PKey::EC</code> the method is named <code>.private_key?</code> (argh!). This is <a href="https://redmine.ruby-lang.org/issues/5600">a known issue</a>, but luckily quite easy to monkey-patch with <code>alias_method</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:alias_method</span><span class="p">,</span> <span class="ss">:private?</span><span class="p">,</span> <span class="ss">:private_key?</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:alias_method</span><span class="p">,</span> <span class="ss">:private?</span><span class="p">,</span> <span class="ss">:private_key?</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Our final code to generate an Certificate Signing Request with ECDSA keys in Ruby looks like this:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -172,7 +165,8 @@
 7
 8
 9
-10</pre></td><td class="code"><pre><span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:alias_method</span><span class="p">,</span> <span class="ss">:private?</span><span class="p">,</span> <span class="ss">:private_key?</span><span class="p">)</span>
+10
+</pre></td><td class="rouge-code"><pre><span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="ss">:alias_method</span><span class="p">,</span> <span class="ss">:private?</span><span class="p">,</span> <span class="ss">:private_key?</span><span class="p">)</span>
 
 <span class="n">ec_domain_key</span><span class="p">,</span> <span class="n">ec_public</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">),</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">PKey</span><span class="o">::</span><span class="no">EC</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="s1">'secp384r1'</span><span class="p">)</span>
 <span class="n">ec_domain_key</span><span class="p">.</span><span class="nf">generate_key</span>
@@ -182,9 +176,7 @@
 <span class="n">csr</span><span class="p">.</span><span class="nf">subject</span> <span class="o">=</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">X509</span><span class="o">::</span><span class="no">Name</span><span class="p">.</span><span class="nf">new</span><span class="p">([[</span><span class="s1">'CN'</span><span class="p">,</span> <span class="s1">'alexpeattie.com'</span><span class="p">]])</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">public_key</span> <span class="o">=</span> <span class="n">ec_public</span>
 <span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">ec_domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
   </article>
   
   <article class='Comments'>

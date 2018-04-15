@@ -67,7 +67,7 @@
 
 <p>This is a sequel to my earlier post: <a href="/blog/github-style-syntax-highlighting-with-pygments/">GitHub-style syntax highlighting with Pygments</a> - I recently updated the way I do syntax highlighting on this site, so here's a quick writeup of how I'm doing it. As before, here's a snippet of Ruby code to demonstrate how the highlighting looks:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -87,7 +87,8 @@
 18
 19
 20
-21</pre></td><td class="code"><pre><span class="k">class</span> <span class="nc">A</span> <span class="o">&lt;</span> <span class="no">B</span><span class="p">;</span> <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">object</span> <span class="o">=</span> <span class="no">User</span><span class="p">)</span>
+21
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">A</span> <span class="o">&lt;</span> <span class="no">B</span><span class="p">;</span> <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">object</span> <span class="o">=</span> <span class="no">User</span><span class="p">)</span>
 <span class="k">class</span> <span class="nc">Zebra</span><span class="p">;</span> <span class="k">def</span> <span class="nf">inspect</span><span class="p">;</span> <span class="s2">"X</span><span class="si">#{</span><span class="mi">2</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="nf">object_id</span><span class="si">}</span><span class="s2">"</span>
 
 <span class="k">module</span> <span class="nn">ABC::DEF</span>
@@ -108,9 +109,7 @@
 <span class="n">anIdentifier</span> <span class="o">=</span> <span class="n">an_identifier</span>
 <span class="no">Constant</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">render</span> <span class="ss">action: :new</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Of course <em>better</em> is a very fuzzy term - but some advantages over the previous approach:</p>
 
 <ul>
@@ -125,35 +124,31 @@
 
 <p>To enable basic syntax highlighting, we need to add the <code>middleman-syntax</code> gem to our <code>Gemfile</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">gem</span> <span class="s2">"middleman-syntax"</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">gem</span> <span class="s2">"middleman-syntax"</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>and activate it in our <code>config.rb</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">activate</span> <span class="ss">:syntax</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">activate</span> <span class="ss">:syntax</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Finally we'll enable line numbers with the aptly-named <code>line_numbers</code> option:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">activate</span> <span class="ss">:syntax</span><span class="p">,</span> <span class="ss">line_numbers: </span><span class="kp">true</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">activate</span> <span class="ss">:syntax</span><span class="p">,</span> <span class="ss">line_numbers: </span><span class="kp">true</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="styling">Styling</h2>
 
 <p>Most of the work is done already, thanks to richleland's <a href="https://github.com/richleland/pygments-css/blob/master/github.css">Github color scheme</a>. We just need to tweak the first line, to replace <code>.hll</code> with <code>.highlight</code></p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="nc">.hll</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffcc</span> <span class="p">}</span> <span class="c">/* WRONG */</span>
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nc">.hll</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffcc</span> <span class="p">}</span> <span class="c">/* WRONG */</span>
 <span class="nc">.highlight</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffcc</span> <span class="p">}</span> <span class="c">/* RIGHT */</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>And we'll add a little extra CSS to style our <code>&lt;pre&gt;</code>, add some extra padding, and prettify the line numbers a bit.</p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -181,7 +176,8 @@
 26
 27
 28
-29</pre></td><td class="code"><pre><span class="nt">pre</span> <span class="p">{</span>
+29
+</pre></td><td class="rouge-code"><pre><span class="nt">pre</span> <span class="p">{</span>
   <span class="nl">border</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">1px</span> <span class="m">#ddd</span><span class="p">;</span>
   <span class="nl">background</span><span class="p">:</span> <span class="m">#fff</span><span class="p">;</span>
   <span class="nl">padding</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
@@ -210,9 +206,7 @@
   <span class="nl">-ms-user-select</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
   <span class="py">user-select</span><span class="p">:</span> <span class="nb">none</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="markdown">Markdown</h2>
 
 <p>I couldn't get rouge to play nicely with <a href="https://github.com/vmg/redcarpet">Redcarpet</a> on middleman - so I decided to switch to <a href="https://github.com/gettalong/kramdown">Kramdown</a>, which I highly recommend. It's written in pure Ruby, and comes with <a href="http://kramdown.rubyforge.org/syntax.html#fenced-code-blocks">fenced code blocks</a> out-of-the-box, as well as footnotes and a bunch of other useful features<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>.</p>
@@ -222,13 +216,13 @@
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p><a href="http://crabonature.pl/posts/17-syntax-highlighting-in-ruby-on-rails">http://crabonature.pl/posts/17-syntax-highlighting-in-ruby-on-rails</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p><a href="http://crabonature.pl/posts/17-syntax-highlighting-in-ruby-on-rails">http://crabonature.pl/posts/17-syntax-highlighting-in-ruby-on-rails</a> <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:2">
-      <p><a href="https://github.com/zzak/glorify">https://github.com/zzak/glorify</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+      <p><a href="https://github.com/zzak/glorify">https://github.com/zzak/glorify</a> <a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
     </li>
     <li id="fn:3">
-      <p><a href="http://kramdown.rubyforge.org/syntax.html">http://kramdown.rubyforge.org/syntax.html</a> <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+      <p><a href="http://kramdown.rubyforge.org/syntax.html">http://kramdown.rubyforge.org/syntax.html</a> <a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

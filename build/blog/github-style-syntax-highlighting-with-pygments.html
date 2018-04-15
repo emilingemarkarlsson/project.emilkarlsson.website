@@ -67,7 +67,7 @@
 
 <p>A few people have asked me how I do the Github-style syntax highlighting on this site. Here's an example Ruby script with highlighting:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -87,7 +87,8 @@
 18
 19
 20
-21</pre></td><td class="code"><pre><span class="k">class</span> <span class="nc">A</span> <span class="o">&lt;</span> <span class="no">B</span><span class="p">;</span> <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">object</span> <span class="o">=</span> <span class="no">User</span><span class="p">)</span> <span class="n">object</span> <span class="k">end</span> <span class="k">end</span>
+21
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">A</span> <span class="o">&lt;</span> <span class="no">B</span><span class="p">;</span> <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">create</span><span class="p">(</span><span class="n">object</span> <span class="o">=</span> <span class="no">User</span><span class="p">)</span> <span class="n">object</span> <span class="k">end</span> <span class="k">end</span>
 <span class="k">class</span> <span class="nc">Zebra</span><span class="p">;</span> <span class="k">def</span> <span class="nf">inspect</span><span class="p">;</span> <span class="s2">"X</span><span class="si">#{</span><span class="mi">2</span> <span class="o">+</span> <span class="nb">self</span><span class="p">.</span><span class="nf">object_id</span><span class="si">}</span><span class="s2">"</span> <span class="k">end</span> <span class="k">end</span>
 
 <span class="k">module</span> <span class="nn">ABC::DEF</span>
@@ -108,71 +109,62 @@
 <span class="n">anIdentifier</span> <span class="o">=</span> <span class="n">an_identifier</span>
 <span class="no">Constant</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">render</span> <span class="ss">action: :new</span>
-</pre></td></tr></tbody></table>
-</div>
-<p>This how-to explains my setup on Middleman (which this site is built on), but it should be applicable to any site using <a href="http://pygments.org/">Pygments</a> for syntax highlighting.</p>
+</pre></td></tr></tbody></table></code></pre></div><p>This how-to explains my setup on Middleman (which this site is built on), but it should be applicable to any site using <a href="http://pygments.org/">Pygments</a> for syntax highlighting.</p>
 
 <p>To enable basic syntax highlighting, we need to add the middleman-syntax gem to our <code>Gemfile</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">gem</span> <span class="s2">"middleman-syntax"</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">gem</span> <span class="s2">"middleman-syntax"</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>and activate it in our <code>config.rb</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">activate</span> <span class="ss">:syntax</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">activate</span> <span class="ss">:syntax</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>We'll also turn on the <code>lineanchors</code> option, which we'll need for line numbering (<a href="#line-numbers">see below</a>).</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">activate</span> <span class="ss">:syntax</span><span class="p">,</span> <span class="ss">lineanchors: </span><span class="s1">'line'</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">activate</span> <span class="ss">:syntax</span><span class="p">,</span> <span class="ss">lineanchors: </span><span class="s1">'line'</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="fenced-code-blocks">Fenced code blocks</h2>
 
 <p>The first feature we'll add is fenced code blocks, a feature of <a href="http://github.github.com/github-flavored-markdown/">Github Flavored Markdown</a>. This allows us to conveniently specify the language (and thus, the <a href="http://pygments.org/docs/lexers/">Pygments lexer</a>) of our code:</p>
 
-<div class="codehilite plaintext"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite plaintext"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre>~~~ruby
+3
+</pre></td><td class="rouge-code"><pre>~~~ruby
 puts "Hello world from ruby"
 ~~~
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>We'll need to change our Markdown pre-processor to Redcarpet which supports fenced code blocks. We need to add:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">gem</span> <span class="s2">"redcarpet"</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">gem</span> <span class="s2">"redcarpet"</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>to our <code>Gemfile</code> and put the following into our <code>config.rb</code>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="n">set</span> <span class="ss">:markdown_engine</span><span class="p">,</span> <span class="ss">:redcarpet</span>
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">set</span> <span class="ss">:markdown_engine</span><span class="p">,</span> <span class="ss">:redcarpet</span>
 <span class="n">set</span> <span class="ss">:markdown</span><span class="p">,</span> <span class="ss">fenced_code_blocks: </span><span class="kp">true</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="github-highlighting-color-scheme">Github highlighting color scheme</h2>
 
 <p>Next we'll add some CSS to match Github's color scheme: <a href="https://github.com/richleland/pygments-css/blob/master/github.css">https://github.com/richleland/pygments-css/blob/master/github.css</a></p>
 
 <p>We have to make one small change, <code>.hll</code> needs to be replaced with <code>.highlight</code></p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="nc">.hll</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffcc</span> <span class="p">}</span> <span class="c">/* WRONG */</span>
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nc">.hll</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffcc</span> <span class="p">}</span> <span class="c">/* WRONG */</span>
 <span class="nc">.highlight</span> <span class="p">{</span> <span class="nl">background-color</span><span class="p">:</span> <span class="m">#ffffcc</span> <span class="p">}</span> <span class="c">/* RIGHT */</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="line-numbers">Line numbers</h2>
 
 <p>The last thing we're missing are line-numbers. We'll implement this in pure CSS, using <a href="https://developer.mozilla.org/en-US/docs/CSS/Counters">CSS counters</a>:</p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -217,7 +209,8 @@ puts "Hello world from ruby"
 43
 44
 45
-46</pre></td><td class="code"><pre><span class="nt">pre</span> <span class="p">{</span>
+46
+</pre></td><td class="rouge-code"><pre><span class="nt">pre</span> <span class="p">{</span>
     <span class="nl">counter-reset</span><span class="p">:</span> <span class="n">line-numbering</span><span class="p">;</span>
     <span class="nl">border</span><span class="p">:</span> <span class="nb">solid</span> <span class="m">1px</span> <span class="m">#d9d9d9</span><span class="p">;</span>
     <span class="nl">border-radius</span><span class="p">:</span> <span class="m">0</span><span class="p">;</span>
@@ -263,9 +256,7 @@ puts "Hello world from ruby"
 <span class="nt">pre</span> <span class="nt">a</span><span class="nd">:only-of-type::before</span> <span class="p">{</span>
   <span class="nl">padding</span><span class="p">:</span> <span class="m">10px</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Notice the <code>user-select: none;</code> - this ensures that when the code is selected, the line numbers won't be selected too, which makes copying and pasting a lot more convenient.</p>
 
 <p>CSS counters will work fine for <a href="http://caniuse.com/css-counters">~95% of users</a> - and older browsers will degrade gracefully (they just won't show any line numbers).</p>

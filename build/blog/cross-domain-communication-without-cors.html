@@ -69,62 +69,57 @@
 
 <p><a href="http://en.wikipedia.org/wiki/JSONP">JSONP</a> (JSON with padding) basically just means wrapping JSON in a function. So instead of this:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="p">{</span> <span class="nl">foo</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">bar</span><span class="err">:</span> <span class="mi">5</span> <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">{</span> <span class="nl">foo</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">bar</span><span class="p">:</span> <span class="mi">5</span> <span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>You have this:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">callbackFunction</span><span class="p">({</span> <span class="na">foo</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">bar</span><span class="p">:</span> <span class="mi">5</span> <span class="p">})</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">callbackFunction</span><span class="p">({</span> <span class="na">foo</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="na">bar</span><span class="p">:</span> <span class="mi">5</span> <span class="p">})</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Now all you have to do is define <code>callbackFunction()</code> and then load in your JSONP with a <code>&lt;script&gt;</code> tag:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-7</pre></td><td class="code"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://otherdomain.com/jsonp.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://otherdomain.com/jsonp.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;script&gt;</span>
 <span class="kd">function</span> <span class="nx">callbackFunction</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">foo</span><span class="p">);</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">bar</span><span class="p">);</span>
 <span class="p">}</span>
 <span class="nt">&lt;/script&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>This is really easy to set up in Rails, you can just <code>render :json</code> as normal, but add a <code>:callback</code> option to turn it into JSONP:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-7</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">example</span>
+7
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">example</span>
   <span class="n">respond_to</span> <span class="k">do</span> <span class="o">|</span><span class="nb">format</span><span class="o">|</span>
     <span class="nb">format</span><span class="p">.</span><span class="nf">js</span> <span class="k">do</span> 
       <span class="n">render</span> <span class="ss">json: </span><span class="p">{</span> <span class="ss">foo: </span><span class="mi">3</span><span class="p">,</span> <span class="ss">bar: </span><span class="mi">5</span> <span class="p">},</span> <span class="ss">callback: </span><span class="s2">"callbackFunction"</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="documentdomain">document.domain</h2>
 
 <p>This solution is even simpler, but <em>only</em> works if you're dealing with different subdomains (not different domains). You can tell pages from <code>http://a.example.com</code> and <code>http://b.example.com</code> to trust each other by setting their <code>document.domain</code> property (<a href="https://developer.mozilla.org/en-US/docs/DOM/document.domain">MDN</a>) to point to the root domain:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="c1">// On both a.example.com and b.example.com</span>
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c1">// On both a.example.com and b.example.com</span>
 <span class="nb">document</span><span class="p">.</span><span class="nx">domain</span> <span class="o">=</span> <span class="s2">"example.com"</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>However, if we tried to change <code>document.domain</code> to <code>somewhereelse.com</code>, we'd get an <code>Illegal document.domain value</code> error.</p>
 
 <h2 id="windowpostmessage">window.postMessage</h2>
@@ -133,20 +128,18 @@
 
 <p>For example your iframe could send a message to the parent window like so:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">parent</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Which is handled by the parent window's <code>message</code> event handler:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"message"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
   <span class="k">if</span><span class="p">(</span> <span class="nx">e</span><span class="p">.</span><span class="nx">data</span> <span class="o">==</span> <span class="s2">"hello "</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"The iframe said hello!"</span><span class="p">);</span>
 <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>You'd also probably want to validate the origin the message is being sent from, by checking <code>e.origin</code>.</p>
 
 <h2 id="footnotes">Footnotes</h2>
@@ -154,7 +147,7 @@
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>Alexey Vasiliev has <a href="http://leopard.in.ua/2012/07/08/using-cors-with-rails/">a good tutorial</a> for setting up CORS on Rails. Additionally, this Rack middleware may be of help: <a href="https://github.com/cyu/rack-cors">https://github.com/cyu/rack-cors</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p>Alexey Vasiliev has <a href="http://leopard.in.ua/2012/07/08/using-cors-with-rails/">a good tutorial</a> for setting up CORS on Rails. Additionally, this Rack middleware may be of help: <a href="https://github.com/cyu/rack-cors">https://github.com/cyu/rack-cors</a>. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>

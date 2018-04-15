@@ -67,32 +67,32 @@
 
 <p>Maybe you'd start with something like this:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">group_by</span> <span class="p">{</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">group_by</span> <span class="p">{</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span>
   <span class="n">post</span><span class="p">.</span><span class="nf">published_at</span><span class="p">.</span><span class="nf">to_date</span>
 <span class="p">}.</span><span class="nf">flat_map</span> <span class="p">{</span> <span class="o">|</span><span class="n">day</span><span class="p">,</span> <span class="n">posts</span><span class="o">|</span>
   <span class="n">posts</span><span class="p">.</span><span class="nf">sort_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:score</span><span class="p">).</span><span class="nf">reverse</span>
 <span class="p">}.</span><span class="nf">first</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>It's not terrible (it works), it's the <a href="http://stackoverflow.com/questions/4987392/how-do-i-group-by-day-instead-of-date">kind of thing</a> you'll find if you Google "rails group by day". The problem with the code is <em>a)</em> it's a bit ugly and <em>b)</em> is it's not very efficient. Using our <code>Enumerable</code> methods (<code>group_by</code> and <code>flat_map</code>), means we have to load <strong>all</strong> our Posts into memory, sort them with Ruby, then pull out the 100 we care about. This is slow &amp; inefficient.</p>
 
 <p>To get me started I ran this on 30K records, it took about 7 seconds (I didn't profile the memory usage, but I'd expect it to be quite high). So we might get away with using Ruby to order a few hundred records, but this doesn't scale to thousands or millions of records.</p>
 
 <p>Postgres is way faster and doing these kind of sorts (especially with indexes, as we'll see below) - but simply ordering by <code>published_at</code> and <code>upvotes</code> doesn't give us what we want:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-8</pre></td><td class="code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'published_at DESC, upvotes DESC'</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:published_at</span><span class="p">,</span> <span class="ss">:upvotes</span><span class="p">)</span>
+8
+</pre></td><td class="rouge-code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'published_at DESC, upvotes DESC'</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:published_at</span><span class="p">,</span> <span class="ss">:upvotes</span><span class="p">)</span>
 <span class="c1">#=&gt; (14.4ms) SELECT "posts"."published_at", "posts"."upvotes" FROM "posts" ORDER BY published_at DESC, upvotes DESC LIMIT 5</span>
 
 <span class="p">[[</span><span class="no">Fri</span><span class="p">,</span> <span class="mi">15</span> <span class="no">Jan</span> <span class="mi">2016</span> <span class="mi">15</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mi">46</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
@@ -100,9 +100,7 @@
  <span class="p">[</span><span class="no">Fri</span><span class="p">,</span> <span class="mi">15</span> <span class="no">Jan</span> <span class="mi">2016</span> <span class="mi">12</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">37</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span> <span class="mi">88</span><span class="p">],</span>
  <span class="p">[</span><span class="no">Thu</span><span class="p">,</span> <span class="mi">14</span> <span class="no">Jan</span> <span class="mi">2016</span> <span class="mi">21</span><span class="p">:</span><span class="mi">48</span><span class="p">:</span><span class="mi">44</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span> <span class="mi">24</span><span class="p">],</span>
  <span class="p">[</span><span class="no">Thu</span><span class="p">,</span> <span class="mi">14</span> <span class="no">Jan</span> <span class="mi">2016</span> <span class="mi">14</span><span class="p">:</span><span class="mi">46</span><span class="p">:</span><span class="mi">51</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span> <span class="mi">282</span><span class="p">]]</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Unless two are added at the same second, the second sort column (upvotes) will never be used. We need to to tell Postgres to sort by the publication <em>day</em>, but to ignore the rest of the timestamp.</p>
 
 <h2 id="enter-datetrunc">Enter <code>datetrunc</code></h2>
@@ -111,20 +109,21 @@
 
 <p><br /></p>
 
-<p><img alt="What day is it?" src="/assets/images/posts/grouping-activerecord-by-day-or-week-with-datetrunc/what-day.gif" /></p>
+<p><img src="/assets/images/posts/grouping-activerecord-by-day-or-week-with-datetrunc/what-day.gif" alt="What day is it?" /></p>
 
 <p><br /></p>
 
 <p><code>datetrunc</code> is really simple, it truncates a date down to a certain precision. If the precision is <code>'day'</code> for example, it'll "reset" the date to midnight (a bit like Rails' beginning_of_day method). Let's modify our example above:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-8</pre></td><td class="code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('day', published_at) DESC, upvotes DESC"</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="s2">"date_trunc('day', published_at)"</span><span class="p">,</span> <span class="ss">:upvotes</span><span class="p">)</span>
+8
+</pre></td><td class="rouge-code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('day', published_at) DESC, upvotes DESC"</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="s2">"date_trunc('day', published_at)"</span><span class="p">,</span> <span class="ss">:upvotes</span><span class="p">)</span>
 <span class="c1">#=&gt; SELECT date_trunc('day', published_at), "collaborations"."upvotes" FROM "collaborations" ORDER BY date_trunc('day', published_at) DESC, upvotes DESC LIMIT 5</span>
 
 <span class="p">[[</span><span class="mi">2016</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">15</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span> <span class="mi">158</span><span class="p">]],</span>
@@ -132,19 +131,16 @@
  <span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">15</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span> <span class="mi">12</span><span class="p">]],</span>
  <span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">14</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span> <span class="mi">282</span><span class="p">]],</span>
  <span class="p">[</span><span class="mi">2016</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">14</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span> <span class="mi">24</span><span class="p">]]</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Pretty cool huh? Everything after the day in our publication timestamp is discarded, which means posts from the same day are correctly sorted by upvotes 🎊!</p>
 
 <p>We can truncate down to any arbitrary precision, from <code>'week'</code> to <code>'millennium'</code> (useful for that database of ancient alien races you might be making).</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('week', published_at)"</span><span class="p">)</span>
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('week', published_at)"</span><span class="p">)</span>
 <span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('millennium', published_at)"</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <div class="Callout">
 <p>Be careful, unlike most of the time in Ruby, single/double quotes <strong>aren't</strong> interchangeable here - in Postgres literal strings like <code>'day'</code> <a href="http://www.postgresql.org/docs/9.4/static/sql-syntax-lexical.html#SQL-SYNTAX-STRINGS">have to be single-quoted</a>.</p>
 </div>
@@ -153,23 +149,21 @@
 
 <p>Using <code>date_trunc</code> is faster than our plain-Ruby approach from the get-go - running our final query (below) on the same 30K rows takes just 155ms seconds!</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2</pre></td><td class="code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('day', published_at) DESC, upvotes DESC"</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="no">Post</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s2">"date_trunc('day', published_at) DESC, upvotes DESC"</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="c1">#=&gt; Post Load (155.2ms)  SELECT  "posts".* FROM "posts" ORDER BY date_trunc('day', published_at) DESC, upvotes DESC  LIMIT 100</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>We can push performance even further by adding an index. We're doing something a bit more complex than just indexing the value of column here, because we're running it through a function first. We'll need expression (or function-based) index. These aren't natively supported in vanilla Rails yet (but there's an <a href="https://github.com/rails/rails/pull/13684">open Pull Request</a> to add them), so we'll use the <a href="https://github.com/SchemaPlus/schema_plus_pg_indexes"><code>schema_plus_pg_indexes</code></a> gem.</p>
 
 <p>With the gem added to our Gemfile, we'll generate a migration</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="n">bin</span><span class="o">/</span><span class="n">rails</span> <span class="n">g</span> <span class="n">migration</span> <span class="n">add_creation_day_score_index_to_posts</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">bin</span><span class="o">/</span><span class="n">rails</span> <span class="n">g</span> <span class="n">migration</span> <span class="n">add_creation_day_score_index_to_posts</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Then we'll add our expression index:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -179,7 +173,8 @@
 8
 9
 10
-11</pre></td><td class="code"><pre><span class="k">class</span> <span class="nc">AddCreationDayScoreIndexToPosts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
+11
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">AddCreationDayScoreIndexToPosts</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Migration</span>
 
   <span class="k">def</span> <span class="nf">up</span>
     <span class="n">add_index</span> <span class="ss">:posts</span><span class="p">,</span> <span class="ss">expression: </span><span class="s2">"date_trunc('day', published_at) DESC, score DESC"</span><span class="p">,</span> <span class="ss">name: </span><span class="s1">'posts_creation_day_score_index'</span>
@@ -190,9 +185,7 @@
   <span class="k">end</span>
 
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>With the index in place, I saw the query complete in <strong>2.2ms</strong> - that's a 70x speedup. Of course 150ms is already pretty fast - but this has real implications if we're grouping by day/month on a really big table.</p>
 
 <p>I tried using <code>date_trunc</code> on a collection of videos from <a href="https://peg.co">Peg's</a> database, with 16 million rows - ordering the Videos' <code>published_at</code> day and <code>view_count</code>. Without indexing the query took 42 seconds, with indexing it was only - 20ms not much slower than our 30K row table! I didn't even try the pure Ruby version (spoiler alert: you're in for a bad time).</p>

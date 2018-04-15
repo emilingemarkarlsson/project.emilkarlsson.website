@@ -71,31 +71,29 @@
 
 <p><strong>Foreign keys should always be indexed</strong> - Tom Ward gives a great explanation of why in <a href="https://tomafro.net/2009/08/using-indexes-in-rails-index-your-associations">this post</a>. So what were we playing at? Human error was to blame - in many instances we'd added the foreign keys as <code>integer</code>s rather than (following best practice) as <code>references</code>. To recap the difference, if I say:</p>
 
-<div class="codehilite shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre>bin/rails g migration AddRegionIdToAddresses region_id:integer
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite shell"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bin/rails g migration AddRegionIdToAddresses region_id:integer
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Rails makes no assumptions about what kind of integer column <code>region_id</code> is, and won't index it. But, in all likelihood, I'll be querying addresses based which region they belong to (<em>Return addresses where <code>region_id = X</code></em>) which is going to be slow without an index. If I instead do:</p>
 
-<div class="codehilite shell"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite shell"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre>bin/rails g migration AddRegionIdToAddresses region_id:references
+5
+</pre></td><td class="rouge-code"><pre>bin/rails g migration AddRegionIdToAddresses region_id:references
 
 <span class="c"># or</span>
 
 bin/rails g migration AddRegionIdToAddresses region_id:belongs_to
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>The index will be automatically created. Note, that everything else works if your foreign key is a plain ol' integer, so it's an easy mixup to make.</p>
 
 <h3 id="automatically-warning-about-missing-foreign-key-indexes">Automatically warning about missing foreign key indexes</h3>
 
 <p>Prevention is better than a cure, so I whipped up a quick script to keep an eye on missing foreing key indexes going forward. Rake offers a very handy <code>enhance</code> method which lets you add behavior that runs after an existing task. In our case, we extended the <code>db:migrate</code> task to <strong>check for any unindexed foreign keys and promptly warn the developer</strong>:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -112,7 +110,8 @@ bin/rails g migration AddRegionIdToAddresses region_id:belongs_to
 15
 16
 17
-18</pre></td><td class="code"><pre><span class="no">Rake</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="s1">'db:migrate'</span><span class="p">].</span><span class="nf">enhance</span> <span class="k">do</span>
+18
+</pre></td><td class="rouge-code"><pre><span class="no">Rake</span><span class="o">::</span><span class="no">Task</span><span class="p">[</span><span class="s1">'db:migrate'</span><span class="p">].</span><span class="nf">enhance</span> <span class="k">do</span>
   <span class="n">tables</span> <span class="o">=</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">tables</span>
   <span class="n">all_foreign_keys</span> <span class="o">=</span> <span class="n">tables</span><span class="p">.</span><span class="nf">flat_map</span> <span class="k">do</span> <span class="o">|</span><span class="n">table_name</span><span class="o">|</span>
     <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">columns</span><span class="p">(</span><span class="n">table_name</span><span class="p">).</span><span class="nf">map</span> <span class="p">{</span><span class="o">|</span><span class="n">c</span><span class="o">|</span> <span class="p">[</span><span class="n">table_name</span><span class="p">,</span> <span class="n">c</span><span class="p">.</span><span class="nf">name</span><span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span> <span class="p">}</span>
@@ -130,9 +129,7 @@ bin/rails g migration AddRegionIdToAddresses region_id:belongs_to
     <span class="nb">warn</span> <span class="s2">"WARNING: The following foreign key columns don't have an index, which can hurt performance: </span><span class="si">#{</span> <span class="n">unindexed_foreign_keys</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">', '</span><span class="p">)</span> <span class="si">}</span><span class="s2">"</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>The code is quite straightforward: we iterate through every column of every table, and select those that end in <code>_id</code>; this is quite a naive way to identify foreign keys, but worked AOK for us. Then we loop through our indexes, and names of the columns they're indexing. If there are any foreign keys which aren't in the list of indexed columns, we output a warning. To install, just save the script as, say, <code>post_migration_index_checker.rake</code> and put it in your <code>libs/tasks</code> directory. Here's the script in action:</p>
 
 <video autoplay="" loop="" poster="http://i.imgur.com/hRYOSiq.jpg" style="width: 100%">

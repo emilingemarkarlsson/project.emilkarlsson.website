@@ -69,14 +69,13 @@
 
 <p>Heroku's Cedar Stack by default doesn't gzip assets, which means everything is sent to the browser uncompressed. This goes against <a href="http://developer.yahoo.com/performance/rules.html#gzip">best practices</a>, and can slow down your load times considerably. Luckily it's a super easy fix. In your <code>config.ru</code>, just <code>use Rack::Deflater</code> before you run your application:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="s1">'../config/environment'</span><span class="p">,</span>  <span class="kp">__FILE__</span><span class="p">)</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="nb">require</span> <span class="o">::</span><span class="no">File</span><span class="p">.</span><span class="nf">expand_path</span><span class="p">(</span><span class="s1">'../config/environment'</span><span class="p">,</span>  <span class="kp">__FILE__</span><span class="p">)</span>
 <span class="n">use</span> <span class="no">Rack</span><span class="o">::</span><span class="no">Deflater</span>
 <span class="n">run</span> <span class="no">MyApp</span><span class="o">::</span><span class="no">Application</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Technically, we're using <code>DEFLATE</code> rather than <code>GZIP</code> - there's a good write-up of the subtle differences <a href="http://zoompf.com/2012/02/lose-the-wait-http-compression">here</a>.</p>
 
 <h2 id="loading-jquery-from-a-cdn">Loading jQuery from a CDN</h2>
@@ -85,16 +84,14 @@
 
 <p>Full instructions are on Github, but basically you need to remove:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">jquery</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="sr">//</span><span class="o">=</span> <span class="nb">require</span> <span class="n">jquery</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>from your <code>application.js</code>, and in your layout add:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="o">=</span> <span class="n">jquery_include_tag</span> <span class="ss">:google</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="o">=</span> <span class="n">jquery_include_tag</span> <span class="ss">:google</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>I'd recommend sticking with Google's CDN, but there are other options to choose from. Pingdom has a <a href="http://royal.pingdom.com/2012/07/24/best-cdn-for-jquery-in-2012/">very thorough rundown</a> of the pros/cons of the various CDNs out there.</p>
 
   </article>

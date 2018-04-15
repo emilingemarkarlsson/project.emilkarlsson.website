@@ -65,36 +65,32 @@
     </h2>
     <p>Just a simple tip that you might not be aware of - if you have an empty, anonymous function in your code like this:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="p">{</span> <span class="nl">foo</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){}</span> <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">{</span> <span class="nl">foo</span><span class="p">:</span> <span class="kd">function</span><span class="p">(){}</span> <span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>and you're using jQuery, you can use <code>$.noop</code> (<a href="http://api.jquery.com/jQuery.noop/">docs</a>) instead:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="p">{</span> <span class="nl">foo</span><span class="p">:</span> <span class="nx">$</span><span class="p">.</span><span class="nx">noop</span> <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">{</span> <span class="nl">foo</span><span class="p">:</span> <span class="nx">$</span><span class="p">.</span><span class="nx">noop</span> <span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>It's a little shorter, but are there any other advantages? There are indeed. Say you have a plugin which creates a widget, with an <code>onClick</code> callback:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">onClick</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{}</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>A new anonymous function will be created every time you instantiate a widget. If you're dealing with hundreds or thousands of instances those extraneous functions add unnecessary overhead, slowing things down. If instead we use <code>$.noop</code>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">.</span><span class="nx">defaults</span> <span class="o">=</span> <span class="p">{</span>
   <span class="na">onClick</span><span class="p">:</span> <span class="nx">$</span><span class="p">.</span><span class="nx">noop</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>We're reusing a single empty function over and over, rather than creating a new one each time. For more info, take a look <a href="http://stackoverflow.com/questions/2069345/what-real-purpose-does-noop-serve-in-jquery-1-4">this Stackoverflow question</a>.</p>
 
   </article>

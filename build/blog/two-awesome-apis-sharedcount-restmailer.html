@@ -67,7 +67,7 @@
 
 <h2 id="sharecount">ShareCount</h2>
 
-<p><img alt="Share buttons" src="/assets/images/posts/two-awesome-apis-sharedcount-restmailer/buttons.png" /></p>
+<p><img src="/assets/images/posts/two-awesome-apis-sharedcount-restmailer/buttons.png" alt="Share buttons" /></p>
 
 <p>Social sharing buttons (pictured above) are all the rage these days. The problem is they're generally loaded in an <code>&lt;iframe&gt;</code>, which means you don't have any control over their styling or behaviour. It's possible to make custom sharing buttons (as you see on this site) - but it's tricky to recreate the official buttons' dynamic share count.</p>
 
@@ -75,7 +75,7 @@
 
 <p>This is where <a href="http://sharedcount.com/">SharedCount</a> comes in handy. Just pass in the url of your page, and you get a breakdown of share counts across a bunch of services:</p>
 
-<div class="codehilite json"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite json"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -94,29 +94,28 @@
 17
 18
 19
-20</pre></td><td class="code"><pre><span class="s2">"http://api.sharedcount.com/?url=http%3A%2F%2Fwww.alexpeattie.com%2Fprojects%2Fjustvector_icons%2F"</span><span class="w">
+20
+</pre></td><td class="rouge-code"><pre><span class="s2">"http://api.sharedcount.com/?url=http%3A%2F%2Fwww.alexpeattie.com%2Fprojects%2Fjustvector_icons%2F"</span><span class="w">
 </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"StumbleUpon"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"Reddit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"Facebook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"commentsbox_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"click_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"total_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">177</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"comment_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"like_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"share_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="w">
+    </span><span class="s2">"StumbleUpon"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Reddit"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Facebook"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"commentsbox_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"click_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"total_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">177</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"comment_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">52</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"like_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"share_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nt">"Delicious"</span><span class="p">:</span><span class="w"> </span><span class="mi">245</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"GooglePlusOne"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"Buzz"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"Twitter"</span><span class="p">:</span><span class="w"> </span><span class="mi">465</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"Diggs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"Pinterest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"LinkedIn"</span><span class="p">:</span><span class="w"> </span><span class="mi">211</span><span class="w">
+    </span><span class="s2">"Delicious"</span><span class="p">:</span><span class="w"> </span><span class="mi">245</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"GooglePlusOne"</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Buzz"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Twitter"</span><span class="p">:</span><span class="w"> </span><span class="mi">465</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Diggs"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Pinterest"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"LinkedIn"</span><span class="p">:</span><span class="w"> </span><span class="mi">211</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></pre></td></tr></tbody></table>
-</div>
-
+</span></pre></td></tr></tbody></table></code></pre></div>
 <p>SharedCount supports JSONP and has built in caching, HTTP and HTTPS endpoints and a generous 100,000 req/day limit.</p>
 
 <h2 id="restmailer">RESTMailer</h2>
@@ -125,23 +124,22 @@
 
 <p><a href="http://restmailer.mihirgarimella.com/">RESTMailer</a> offers a much better alternative. You build your own form in vanilla HTML, and style it however you want:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"contact-form"</span> <span class="na">action=</span><span class="s">""</span><span class="nt">&gt;</span>
+6
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;form</span> <span class="na">id=</span><span class="s">"contact-form"</span> <span class="na">action=</span><span class="s">""</span><span class="nt">&gt;</span>
   <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Your Name"</span> <span class="na">name=</span><span class="s">"name"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Your Email Address"</span> <span class="na">name=</span><span class="s">"email"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">placeholder=</span><span class="s">"Subject"</span> <span class="na">name=</span><span class="s">"subject"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span><span class="nt">&gt;</span>Send<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;/form&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>and then you can send your email with a <code>$.post</code> request to RESTMailer's API:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -151,7 +149,8 @@
 8
 9
 10
-11</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#contact-form'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'submit'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+11
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'#contact-form'</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s1">'submit'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
   <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
     <span class="na">type</span><span class="p">:</span><span class="s1">'POST'</span><span class="p">,</span>
     <span class="na">url</span><span class="p">:</span> <span class="s1">'http://restmailer-mihir.rhcloud.com/send/[USERNAME]'</span><span class="p">,</span>
@@ -162,9 +161,7 @@
     <span class="p">}</span>
   <span class="p">});</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>RESTMailer also handily offers (optional) server-side validation.</p>
 
   </article>

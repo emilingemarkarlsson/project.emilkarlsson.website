@@ -60,12 +60,12 @@
         <article class='ContentBody'>
     <h1 id="windowedjs">windowed.js</h1>
 
-<p class="u-centerText" role="menu"><a class="Btn Btn--large Btn--cta" href="https://github.com/alexpeattie/windowed/archive/master.zip">Download (.zip)</a>
-<a class="Btn Btn--large Btn--source" href="https://github.com/alexpeattie/windowed">Source</a></p>
+<p class="u-centerText" role="menu"><a href="https://github.com/alexpeattie/windowed/archive/master.zip" class="Btn Btn--large Btn--cta">Download (.zip)</a>
+<a href="https://github.com/alexpeattie/windowed" class="Btn Btn--large Btn--source">Source</a></p>
 
 <p><strong>windowed.js</strong> is a <a href="http://jquery.com/">jQuery</a> plugin that implements Chris Norström's awesome <a href="http://www.chrisnorstrom.com/2012/11/invention-multiple-choice-windowed-slider-ui/">"Windowed Slider" concept</a>. It takes your regular checkboxes or <code>&lt;select&gt;</code> lists and transforms them into slick 'windowed sliders'.</p>
 
-<p><img alt="Concept by Chris Norström" src="/assets/images/projects/windowed/concept.png" /></p>
+<p><img src="/assets/images/projects/windowed/concept.png" alt="Concept by Chris Norström" /></p>
 
 <p>When an option is selected with the slider, the value of the original checkbox or <code>&lt;select&gt;</code> is updated too, so it should work seamlessly with existing forms.</p>
 
@@ -112,14 +112,15 @@
 
 <p>For all the examples below, you'll first need to add the <code>windowed.min.css</code> and <code>jquery.windowed.min.js</code> files to your HTML page:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-8</pre></td><td class="code"><pre><span class="nt">&lt;head&gt;</span>
+8
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;head&gt;</span>
   <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"path/to/windowed.min.css"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;/head&gt;</span>
 <span class="nt">&lt;body&gt;</span>
@@ -127,9 +128,7 @@
   <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">'jquery.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
   <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">'/path/to/jquery.windowed.min.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Note: I've simplified the HTML in the examples for brevity's sake. For instance, when using this in real life, make sure your <code>&lt;input&gt;</code>/<code>&lt;select&gt;</code> elements have a <code>name</code> attribute.</p>
 
 <h3 id="checkbox">Checkbox</h3>
@@ -140,39 +139,35 @@
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'checkbox'</span><span class="nt">&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">'checkbox'</span><span class="nt">&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="select-box">Select box</h3>
 
 <p><select class="basic"><option>WE</option><option>HAVE</option><option>CHOICES!</option></select></p>
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="nt">&lt;select&gt;</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;select&gt;</span>
   <span class="nt">&lt;option&gt;</span>WE<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>HAVE<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>CHOICES!<span class="nt">&lt;/option&gt;</span>
 <span class="nt">&lt;/select&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-<p><em>JavaScript</em>:</p>
+</pre></td></tr></tbody></table></code></pre></div><p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="vertical">Vertical</h3>
 
 <p><select class="vertical"><option>If you need more room for choices</option><option selected="selected">Feel free to go with the vertical orientation</option><option>It's not as elegant as using a radio button</option><option>But it's an option</option></select></p>
@@ -181,30 +176,28 @@
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="nt">&lt;select&gt;</span>
+6
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;select&gt;</span>
   <span class="nt">&lt;option&gt;</span>If you need more room for choices<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option</span> <span class="na">selected=</span><span class="s">'selected'</span><span class="nt">&gt;</span>Feel free to go with the vertical orientation<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>It's not as elegant as using a radio button<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>But it's an option<span class="nt">&lt;/option&gt;</span>
 
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">vertical</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="custom-text-width-and-height">Custom text, width and height</h3>
 
 <p><input class="custom" type="checkbox" /></p>
@@ -213,31 +206,29 @@
 
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-4</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+4
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">on</span><span class="p">:</span> <span class="s2">"ENABLED"</span><span class="p">,</span>
   <span class="na">off</span><span class="p">:</span> <span class="s2">"DISABLED"</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>You can use CSS to set the component's width and height. Alternatively, you can pass a 
 <code>width</code> or <code>height</code> option to the JS function.</p>
 
 <p><em>CSS</em>:</p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-4</pre></td><td class="code"><pre><span class="nc">.window-toggle</span> <span class="p">{</span>
+4
+</pre></td><td class="rouge-code"><pre><span class="nc">.window-toggle</span> <span class="p">{</span>
   <span class="nl">width</span><span class="p">:</span> <span class="m">200px</span><span class="p">;</span>
   <span class="nl">height</span><span class="p">:</span> <span class="m">50px</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="callback">Callback</h3>
 
 <p><input class="callback" type="checkbox" /></p>
@@ -262,7 +253,7 @@
 
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -276,7 +267,8 @@
 12
 13
 14
-15</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+15
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">change</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">checked</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span> <span class="s2">"The checkbox is now "</span> <span class="o">+</span> <span class="p">(</span><span class="nx">checked</span> <span class="p">?</span> <span class="s2">"checked"</span> <span class="p">:</span> <span class="s2">"unchecked"</span><span class="p">)</span> <span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">);</span>
@@ -291,9 +283,7 @@
     <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="themes">Themes</h3>
 
 <p><input class="info" type="checkbox" /></p>
@@ -313,41 +303,39 @@ Included by default are 4 themes: <code>info</code>, <code>success</code>, <code
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"themeDemo"</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"themeDemo"</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"success"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">checked=</span><span class="s">"checked"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"warning"</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
 <span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"danger"</span> <span class="na">type=</span><span class="s">"checkbox"</span> <span class="na">checked=</span><span class="s">"checked"</span><span class="nt">&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-7</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#themeDemo"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+7
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#themeDemo"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">theme</span><span class="p">:</span> <span class="s2">"info"</span>
 <span class="p">})</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox:not(#themeDemo)"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">theme</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="disabled">Disabled</h3>
 
 <p><input id="demoDisable" type="checkbox" /></p>
 
-<p><a class="windowed-enable" href="#">Enable</a> · <a class="windowed-disable" href="#">Disable</a> · <a class="windowed-toggle" href="#">Toggle</a></p>
+<p><a href="#" class="windowed-enable">Enable</a> · <a href="#" class="windowed-disable">Disable</a> · <a href="#" class="windowed-toggle">Toggle</a></p>
 
 <p><select disabled="disabled"><option>Hello</option><option>World</option></select></p>
 
@@ -358,7 +346,7 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -367,7 +355,8 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 7
 8
 9
-10</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"demoDisable"</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+10
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"demoDisable"</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn enable"</span><span class="nt">&gt;</span>Enable<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn disable"</span><span class="nt">&gt;</span>Disable<span class="nt">&lt;/button&gt;</span>
@@ -377,12 +366,10 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
   <span class="nt">&lt;option&gt;</span>Hello<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>World<span class="nt">&lt;/option&gt;</span>
 <span class="nt">&lt;/select&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -398,7 +385,8 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 14
 15
 16
-17</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+17
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">disabled</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">});</span>
 
@@ -415,9 +403,7 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 <span class="nx">$</span><span class="p">(</span><span class="s2">".btn.toggle"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
   <span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleEnabled'</span><span class="p">);</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="animation">Animation</h3>
 
 <p><input type="checkbox" class="no-animate" /><br />
@@ -429,45 +415,43 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-7</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;select&gt;</span>
   <span class="nt">&lt;option&gt;</span>TAKE<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>IT<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>SLOW<span class="nt">&lt;/option&gt;</span>
 <span class="nt">&lt;/select&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-7</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+7
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">animate</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">});</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">animateDuration</span><span class="p">:</span> <span class="mi">1000</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="change-state">Change state</h3>
 
 <p><input class="changestate" type="checkbox" /></p>
 
-<p><a class="windowed-on" href="#">On</a> · <a class="windowed-off" href="#">Off</a> · <a class="windowed-toggle-onoff" href="#">Toggle</a></p>
+<p><a href="#" class="windowed-on">On</a> · <a href="#" class="windowed-off">Off</a> · <a href="#" class="windowed-toggle-onoff">Toggle</a></p>
 
 <p><select class="changestate-select">
   <option>ONE</option>
@@ -475,7 +459,7 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
   <option>THREE</option>
 </select></p>
 
-<p><a class="windowed-num" href="#">1</a> · <a class="windowed-num" href="#">2</a> · <a class="windowed-num" href="#">3</a></p>
+<p><a href="#" class="windowed-num">1</a> · <a href="#" class="windowed-num">2</a> · <a href="#" class="windowed-num">3</a></p>
 
 <p>You can change a checkbox's state using <code>.windowed('setState', s)</code> where <code>s</code> can be <code>true</code> (checked) or <code>false</code> (unchecked);
 or using <code>.windowed('toggleState')</code>.</p>
@@ -484,7 +468,7 @@ or using <code>.windowed('toggleState')</code>.</p>
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -498,7 +482,8 @@ or using <code>.windowed('toggleState')</code>.</p>
 12
 13
 14
-15</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+15
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn on"</span><span class="nt">&gt;</span>On<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn off"</span><span class="nt">&gt;</span>Off<span class="nt">&lt;/button&gt;</span>
@@ -513,12 +498,10 @@ or using <code>.windowed('toggleState')</code>.</p>
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn num"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn num"</span><span class="nt">&gt;</span>2<span class="nt">&lt;/button&gt;</span>
 <span class="nt">&lt;button</span> <span class="na">class=</span><span class="s">"btn num"</span><span class="nt">&gt;</span>3<span class="nt">&lt;/button&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -536,7 +519,8 @@ or using <code>.windowed('toggleState')</code>.</p>
 16
 17
 18
-19</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox, select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+19
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox, select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
 
 <span class="nx">$</span><span class="p">(</span><span class="s2">".btn.on"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
   <span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setState'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
@@ -555,9 +539,7 @@ or using <code>.windowed('toggleState')</code>.</p>
   <span class="c1">// i.e. the first option's index is 0, 2nd is 1 etc.</span>
   <span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'selectOption'</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
 <span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="tinted-window">Tinted window</h3>
 
 <div class="tinted"><input class="basic tinted" type="checkbox" /></div>
@@ -566,14 +548,13 @@ or using <code>.windowed('toggleState')</code>.</p>
 
 <p><em>CSS</em>:</p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="nc">.windowed</span> <span class="nc">.slider</span> <span class="p">{</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="nc">.windowed</span> <span class="nc">.slider</span> <span class="p">{</span>
   <span class="nl">background</span><span class="p">:</span> <span class="n">rgba</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">0.1</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="custom-themes">Custom themes</h3>
 
 <p><input class="customtheme" type="checkbox" /></p>
@@ -598,31 +579,29 @@ or using <code>.windowed('toggleState')</code>.</p>
 
 <p><em>HTML</em>:</p>
 
-<div class="codehilite html"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite html"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-7</pre></td><td class="code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+7
+</pre></td><td class="rouge-code"><pre><span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
 
 <span class="nt">&lt;select&gt;</span>
   <span class="nt">&lt;option&gt;</span>BLACK<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>IS<span class="nt">&lt;/option&gt;</span>
   <span class="nt">&lt;option&gt;</span>BEAUTIFUL<span class="nt">&lt;/option&gt;</span>
 <span class="nt">&lt;/select&gt;</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>JavaScript</em>:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox, select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span><span class="na">theme</span><span class="p">:</span> <span class="s2">"custom"</span><span class="p">});</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox, select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span><span class="na">theme</span><span class="p">:</span> <span class="s2">"custom"</span><span class="p">});</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p><em>CSS</em>:</p>
 
-<div class="codehilite css"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite css"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -638,7 +617,8 @@ or using <code>.windowed('toggleState')</code>.</p>
 14
 15
 16
-17</pre></td><td class="code"><pre><span class="nc">.windowed.custom</span> <span class="p">{</span>
+17
+</pre></td><td class="rouge-code"><pre><span class="nc">.windowed.custom</span> <span class="p">{</span>
   <span class="nl">background-image</span><span class="p">:</span> <span class="n">-moz-linear-gradient</span><span class="p">(</span><span class="nb">center</span> <span class="nb">bottom</span><span class="p">,</span> <span class="m">#000</span><span class="p">,</span> <span class="m">#333</span><span class="p">)</span>
 <span class="p">}</span>
 
@@ -655,9 +635,7 @@ or using <code>.windowed('toggleState')</code>.</p>
 <span class="nc">.windowed.custom</span> <span class="nc">.selected</span> <span class="p">{</span>
   <span class="nl">color</span><span class="p">:</span> <span class="m">#bfa</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h2 id="options">Options</h2>
 
 <!-- 
@@ -777,47 +755,41 @@ Sets the width of the component. See also: *height*.||
 
 <p>windowed.js includes a few utility methods. The methods follow the jQuery UI pattern:</p>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'methodName'</span><span class="p">,</span> <span class="p">[</span><span class="nx">optionalParameters</span><span class="p">]);</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'methodName'</span><span class="p">,</span> <span class="p">[</span><span class="nx">optionalParameters</span><span class="p">]);</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <h3 id="setenabled"><code>setEnabled</code></h3>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setEnabled'</span><span class="p">,</span> <span class="nx">enabled</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setEnabled'</span><span class="p">,</span> <span class="nx">enabled</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Enables/disables the component. enabled is a boolean, where <code>true</code> enables the component, and <code>false</code> disables it. The method returns this boolean value.</p>
 
 <h3 id="toggleenabled"><code>toggleEnabled</code></h3>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleEnabled'</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleEnabled'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Toggles the component's enabled/disabled state. Returns a boolean value indicating the component's new state, where <code>true == enabled</code>.</p>
 
 <h3 id="setstate"><code>setState</code></h3>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input:checkbox'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setState'</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input:checkbox'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setState'</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Checks/unchecks a checkbox component. state is a boolean, where <code>true</code> checks the component, and <code>false</code> unchecks it. The method returns this boolean value.</p>
 
 <h3 id="togglestate"><code>toggleState</code></h3>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input:checkbox'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleState'</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-<p>Toggles a checkbox component's checked/unchecked state. Returns a boolean value indicating the component's new state, where <code>true == checked</code>.</p>
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input:checkbox'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleState'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div><p>Toggles a checkbox component's checked/unchecked state. Returns a boolean value indicating the component's new state, where <code>true == checked</code>.</p>
 
 <h3 id="selectoption"><code>selectOption</code></h3>
 
-<div class="codehilite javascript"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1</pre></td><td class="code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'selectOption'</span><span class="p">,</span> <span class="nx">optionIndex</span><span class="p">)</span>
-</pre></td></tr></tbody></table>
-</div>
-
+<div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'selectOption'</span><span class="p">,</span> <span class="nx">optionIndex</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div>
 <p>Selects an option on a <code>&lt;select&gt;</code>-based component. <code>optionIndex</code> is an integer, representing the 0-based index of the option to be selected. The selected <code>.option</code> is returned.</p>
 
 <h2 id="todo-and-contributing">Todo and contributing</h2>

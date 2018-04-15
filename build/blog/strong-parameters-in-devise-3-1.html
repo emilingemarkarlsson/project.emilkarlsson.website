@@ -71,27 +71,26 @@
 
 <p>First a bit of background. Rails 4 introduced the concept of <a href="http://edgeapi.rubyonrails.org/classes/ActionController/StrongParameters.html">strong parameters</a>, to mitigate <a href="http://pragtob.wordpress.com/2012/03/06/secure-your-rails-apps/">mass assignment vulnerabilities</a>. With strong parameters, we whitelist the model attributes that should be writeable in <em>the controller</em>.</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-6</pre></td><td class="code"><pre><span class="c1"># app/controllers/articles_controller.rb</span>
+6
+</pre></td><td class="rouge-code"><pre><span class="c1"># app/controllers/articles_controller.rb</span>
 
 <span class="k">def</span> <span class="nf">create</span>
   <span class="c1"># only title and body are whitelisted</span>
   <span class="no">Article</span><span class="p">.</span><span class="nf">create</span> <span class="n">params</span><span class="p">[</span><span class="ss">:article</span><span class="p">].</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>This is problematic in Devise, because by default we don't see the controllers &amp; actions that Devise uses to handle creating and updating our <code>User</code> model.</p>
 
 <p>Instead Devise gives us an interface to modify the whitelisted parameters that is uses internally: <code>devise_parameter_sanitizer</code>.</p>
 
 <p>Devise has three 'parameter sanitizers': for signing up, signing in and updating your account. Previous to 3.1 <code>devise_parameter_sanitizer</code>  took an argument specifying which sanitizer needs to be modified – either <code>:sign_in</code>, <code>:sign_up</code> or <code>:sign_out</code> – and a block which passes in the un-whitelisted parameters. We can then call <code>.permit</code> on those parameters as normal:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -101,7 +100,8 @@
 8
 9
 10
-11</pre></td><td class="code"><pre><span class="c1"># app/controllers/application_controller.rb</span>
+11
+</pre></td><td class="rouge-code"><pre><span class="c1"># app/controllers/application_controller.rb</span>
 
 <span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="no">ActionController</span><span class="o">::</span><span class="no">Base</span>
   <span class="n">before_filter</span> <span class="ss">:configure_permitted_parameters</span><span class="p">,</span> <span class="ss">if: :devise_controller?</span>
@@ -112,53 +112,48 @@
     <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:sign_in</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span> <span class="n">u</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">)</span> <span class="p">}</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <h4 id="the-problem">The problem</h4>
 
 <p>The main problem with this approach, is that by providing a block, we overrwrote Devise's default whitelistings. For example, if we wanted to add a <code>username</code> attribute to the permitted parameters, but keep all the Devise defaults, we'd need code like this:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">configure_permitted_parameters</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">configure_permitted_parameters</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:sign_in</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span> <span class="n">u</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:remember_me</span><span class="p">)</span> <span class="p">}</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:sign_up</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span> <span class="n">u</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span><span class="ss">:username</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">)</span> <span class="p">}</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:account_update</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">u</span><span class="o">|</span> <span class="n">u</span><span class="p">.</span><span class="nf">permit</span><span class="p">(</span> <span class="ss">:username</span><span class="p">,</span> <span class="ss">:email</span><span class="p">,</span> <span class="ss">:password</span><span class="p">,</span> <span class="ss">:password_confirmation</span><span class="p">,</span> <span class="ss">:current_password</span><span class="p">)</span> <span class="p">}</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>..which is pretty verbose for adding a single attribute. Most of this is boilerplate code, to ensure that Devise's default whitelist is still applied.</p>
 
 <h2 id="the-new-way">The new way</h2>
 
 <p>From Devise 3.1+ we can call <code>devise_parameter_sanitizer.for</code> without a block which will return an array of permitted parameters. We can shovel attributes into this array to whitelist them. So the code above would look like this after 3.1:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">configure_permitted_parameters</span>
+5
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">configure_permitted_parameters</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:sign_in</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="ss">:username</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:sign_up</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="ss">:username</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="ss">:account_update</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="ss">:username</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>or a DRYer version:</p>
 
-<div class="codehilite ruby"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+<div class="highlight"><pre class="codehilite ruby"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-3</pre></td><td class="code"><pre><span class="p">[</span><span class="ss">:sign_in</span><span class="p">,</span> <span class="ss">:sign_up</span><span class="p">,</span> <span class="ss">:account_update</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">action</span><span class="o">|</span>
+3
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="ss">:sign_in</span><span class="p">,</span> <span class="ss">:sign_up</span><span class="p">,</span> <span class="ss">:account_update</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">action</span><span class="o">|</span>
   <span class="n">devise_parameter_sanitizer</span><span class="p">.</span><span class="nf">for</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="ss">:username</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table>
-</div>
-
+</pre></td></tr></tbody></table></code></pre></div>
 <p>You can still pass a block to completely override the Devise defaults if you want.</p>
 
 <h4 id="backwards-incompatability">Backwards incompatability</h4>
