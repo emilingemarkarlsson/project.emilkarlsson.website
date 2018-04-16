@@ -1,7 +1,7 @@
 /* jquery.windowed.js 
  * ------------------
  * Version: 0.0.1
- * Author: Alex Peattie (@alexpeattie)
+ * Author: Emil Karlsson (@alexpeattie)
  * Homepage: http://www.alexpeattie.com/projects/windowed
  * Repo: https://github.com/alexpeattie/windowed
  * License: MIT

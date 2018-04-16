@@ -1,13 +1,13 @@
 {
-  "name": "alexpeattie.com",
-  "version": "3.0.0",
+  "name": "emilkarlsson.website",
+  "version": "1.0.0",
   "authors": [
-    "Alex Peattie <me@alexpeattie.com>"
+    "Emil Karlsson <emilingemarkarlsson@gmail.com>"
   ],
-  "description": "My (Alex Peattie's) personal site",
+  "description": "My (Emil Karlsson's) personal site",
   "main": "source/index.html.erb",
   "license": "MIT",
-  "homepage": "http://alexpeattie.com",
+  "homepage": "http://emilkarlsson.website",
   "private": true,
   "ignore": [
     "**/.*",

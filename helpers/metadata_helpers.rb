@@ -4,9 +4,9 @@ require 'sanitize'
 module MetadataHelpers
   def title
     page_title = Sanitize.fragment(current_page.data.title)
-    return page_title if page_title.to_s.include?('Alex Peattie')
+    return page_title if page_title.to_s.include?('Emil Karlsson')
 
-    [(page_title || slug), 'Alex Peattie'].join(' - ')
+    [(page_title || slug), 'Emil Karlsson'].join(' - ')
   end
 
   def slug

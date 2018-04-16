@@ -7,7 +7,7 @@
     <meta name='description' content="Let&#39;s Encrypt just rolled out support for ECDSA certificates in staging - a move that I think will nudge ECDSA signing more into the mainstream. ECDSA offers higher levels of security at much lower key sizes; as Ivan Ristić explains in Bulletproof SSL and TLS:">
     <meta name="twitter:card" content="summary" /> <meta name="twitter:site" content="@alexpeattie" /> <meta name="twitter:title" content="Signing a CSR with an ECDSA key in Ruby" /> <meta name="twitter:description" content="Lets Encrypt just rolled out support for ECDSA certificates in staging..." /> <meta name="twitter:image" content="https://alexpeattie.com/assets/images/posts/signing-a-csr-with-ecdsa-in-ruby/certificate.png" />
 
-    <title>Signing a CSR with an ECDSA key in Ruby - Alex Peattie</title>
+    <title>Signing a CSR with an ECDSA key in Ruby - Emil Karlsson</title>
 
     <link href='//fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
 
@@ -60,8 +60,8 @@
         <article class='ContentBody'>
     <h1>Signing a CSR with an ECDSA key in Ruby</h1>
     <h2 class='PostMeta'>
-      <time datetime="2016-02-09" pubdate="true">9th February 2016</time> – 
-      <a href='#comments' data-disqus-url='http://alexpeattie.com/blog/signing-a-csr-with-ecdsa-in-ruby.html'>comments</a>
+      <time datetime="2016-02-09" pubdate="true">9th February 2016</time> –
+      <a href='#comments' data-disqus-url='http://emilkarlsson.website/blog/signing-a-csr-with-ecdsa-in-ruby.html'>comments</a>
     </h2>
     <p>Let's Encrypt just <a href="https://community.letsencrypt.org/t/ecdsa-testing-on-staging/8809">rolled out support</a> for ECDSA certificates in staging - a move that I think will nudge ECDSA signing more into the mainstream. ECDSA offers higher levels of security at much lower key sizes; as Ivan Ristić explains in <a href="https://www.feistyduck.com/books/bulletproof-ssl-and-tls/">Bulletproof SSL and TLS</a>:</p>
 
@@ -178,7 +178,7 @@
 <span class="n">csr</span><span class="p">.</span><span class="nf">sign</span> <span class="n">ec_domain_key</span><span class="p">,</span> <span class="no">OpenSSL</span><span class="o">::</span><span class="no">Digest</span><span class="o">::</span><span class="no">SHA256</span><span class="p">.</span><span class="nf">new</span>
 </pre></td></tr></tbody></table></code></pre></div>
   </article>
-  
+
   <article class='Comments'>
   <h2 id='comments'>Comments</h2>
 
