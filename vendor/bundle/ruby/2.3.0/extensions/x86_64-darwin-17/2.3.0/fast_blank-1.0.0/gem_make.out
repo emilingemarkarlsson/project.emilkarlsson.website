@@ -1,0 +1,21 @@
+current directory: /Users/Emil/Documents/GitHub/emilkarlsson.website/vendor/bundle/ruby/2.3.0/gems/fast_blank-1.0.0/ext/fast_blank
+/Users/Emil/.rvm/rubies/ruby-2.3.3/bin/ruby -r ./siteconf20180724-78950-1qviho7.rb extconf.rb
+Ignoring eventmachine-1.2.5 because its extensions are not built. Try: gem pristine eventmachine --version 1.2.5
+Ignoring ffi-1.9.25 because its extensions are not built. Try: gem pristine ffi --version 1.9.25
+Ignoring ffi-1.9.23 because its extensions are not built. Try: gem pristine ffi --version 1.9.23
+Ignoring nokogiri-1.8.4 because its extensions are not built. Try: gem pristine nokogiri --version 1.8.4
+Ignoring nokogiri-1.8.2 because its extensions are not built. Try: gem pristine nokogiri --version 1.8.2
+Ignoring nokogumbo-1.5.0 because its extensions are not built. Try: gem pristine nokogumbo --version 1.5.0
+creating Makefile
+
+current directory: /Users/Emil/Documents/GitHub/emilkarlsson.website/vendor/bundle/ruby/2.3.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR=" clean
+
+current directory: /Users/Emil/Documents/GitHub/emilkarlsson.website/vendor/bundle/ruby/2.3.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR="
+compiling fast_blank.c
+linking shared-object fast_blank.bundle
+
+current directory: /Users/Emil/Documents/GitHub/emilkarlsson.website/vendor/bundle/ruby/2.3.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR=" install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 fast_blank.bundle ./.gem.20180724-78950-1pfxzgr
