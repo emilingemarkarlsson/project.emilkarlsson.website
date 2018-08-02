@@ -15,11 +15,11 @@ p, ul, ol {
     font-size: .95em; }
 
 a {
-  color: #4eb0eb;
+  color: #0071E0;
   cursor: pointer;
   text-decoration: none;
   display: inline;
-  border-bottom: 1px dotted #4eb0eb;
+  border-bottom: 1px dotted #0071E0;
   line-height: 130%; }
   a:hover {
     color: #7cc4f0;
@@ -55,7 +55,7 @@ h3 {
 blockquote {
   margin: 30px 0;
   font-size: 90%;
-  border-left: 3px solid #4eb0eb;
+  border-left: 3px solid #0071E0;
   padding-left: 40px; }
   blockquote p {
     color: #999; }

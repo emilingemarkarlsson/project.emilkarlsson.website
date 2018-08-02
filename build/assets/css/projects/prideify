@@ -10,7 +10,7 @@
   border-radius: 8px;
   border: 1px solid #eee; }
   .prideify-Dropzone.is-hovered {
-    border-color: #4eb0eb; }
+    border-color: #0071E0; }
   .prideify-Dropzone.is-uploaded {
     border: none;
     background: none; }
@@ -29,7 +29,7 @@
   margin-top: 15px;
   outline: none; }
   .prideify-UrlEntry:focus {
-    border-bottom: 1px dashed #4eb0eb; }
+    border-bottom: 1px dashed #0071E0; }
 
 .prideify-Peg {
   margin-top: .5em; }
