@@ -22,8 +22,8 @@ a {
   border-bottom: 1px dotted #0071E0;
   line-height: 130%; }
   a:hover {
-    color: #7cc4f0;
-    border-bottom: solid 1px #7cc4f0; }
+    color: #148bff;
+    border-bottom: solid 1px #148bff; }
 
 aside > a, aside > a:hover {
   border-bottom: none; }
