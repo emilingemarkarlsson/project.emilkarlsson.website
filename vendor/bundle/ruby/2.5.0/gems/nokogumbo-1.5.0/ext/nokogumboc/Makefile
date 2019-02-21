@@ -12,12 +12,12 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = .
-topdir = /Users/Emil/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0
+topdir = /Users/emil/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0
 hdrdir = $(topdir)
-arch_hdrdir = /Users/Emil/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/x86_64-darwin17
+arch_hdrdir = /Users/emil/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/x86_64-darwin18
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
-prefix = $(DESTDIR)/Users/Emil/.rvm/rubies/ruby-2.5.1
+prefix = $(DESTDIR)/Users/emil/.rvm/rubies/ruby-2.5.1
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 rubyarchprefix = $(rubylibprefix)/$(arch)
 rubylibprefix = $(libdir)/$(RUBY_BASE_NAME)
@@ -31,8 +31,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = $(DESTDIR)./.gem.20180724-95280-8fi2b8
-sitelibdir = $(DESTDIR)./.gem.20180724-95280-8fi2b8
+sitearchdir = $(DESTDIR)./.gem.20190221-87339-1nb6iug
+sitelibdir = $(DESTDIR)./.gem.20190221-87339-1nb6iug
 sitedir = $(rubylibprefix)/site_ruby
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -81,10 +81,10 @@ optflags = -O3
 debugflags = -ggdb3
 warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration -Wdivision-by-zero -Wdeprecated-declarations -Wextra-tokens
 CCDLFLAGS = -fno-common
-CFLAGS   = $(CCDLFLAGS) $(cflags)  -fno-common -pipe -std=c99  -DNGLIB $(ARCH_FLAG)
-INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir) -I/usr/include/libxml2 -I/Users/Emil/Documents/GitHub/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ext/nokogiri
+CFLAGS   = $(CCDLFLAGS) $(cflags)  -fno-common -pipe -std=c99   -O3 -Wall -Wcast-qual -Wwrite-strings -Wextra -Wmissing-noreturn -Winline -DNOKOGIRI_USE_PACKAGED_LIBRARIES -DNGLIB $(ARCH_FLAG)
+INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir) -I/usr/include/libxml2 -I/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ext/nokogiri
 DEFS     = 
-CPPFLAGS =   -I/usr/local/opt/libyaml/include -I/usr/local/opt/readline/include -I/usr/local/opt/libksba/include -I/usr/local/opt/openssl@1.1/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
+CPPFLAGS = -DHAVE_ICONV_H -DHAVE_XMLPARSEDOC -DHAVE_XSLTPARSESTYLESHEETDOC -DHAVE_EXSLTFUNCREGISTER -DHAVE_XMLHASFEATURE -DHAVE_XMLFIRSTELEMENTCHILD -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETPARSERSTRUCTUREDERRORS -DHAVE_XMLRELAXNGSETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETVALIDSTRUCTUREDERRORS -DHAVE_XMLSCHEMASETPARSERSTRUCTUREDERRORS -I/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxslt/1.1.32/include -I/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/include/libxml2 -I/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/include/libxml2  -I/usr/local/opt/libyaml/include -I/usr/local/opt/readline/include -I/usr/local/opt/libksba/include -I/usr/local/opt/openssl@1.1/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) "-DNOKOGIRI_LIBXML2_PATH=\"/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8\"" "-DNOKOGIRI_LIBXML2_PATCHES=\"0001-Revert-Do-not-URI-escape-in-server-side-includes.patch\"" "-DNOKOGIRI_LIBXSLT_PATH=\"/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxslt/1.1.32\"" "-DNOKOGIRI_LIBXSLT_PATCHES=\"\""
 CXXFLAGS = $(CCDLFLAGS) $(cxxflags)  $(ARCH_FLAG)
 ldflags  = -L. -fstack-protector -L/usr/local/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib 
 dldflags = -Wl,-undefined,dynamic_lookup -Wl,-multiply_defined,suppress -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib 
@@ -102,7 +102,7 @@ RUBY_VERSION_NAME = $(RUBY_BASE_NAME)-$(ruby_version)
 RUBYW_BASE_NAME = rubyw
 RUBY_BASE_NAME = ruby
 
-arch = x86_64-darwin17
+arch = x86_64-darwin18
 sitearch = $(arch)
 ruby_version = 2.5.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
@@ -122,8 +122,8 @@ TOUCH = exit >
 #### End of system configuration section. ####
 
 preload = 
-libpath = . $(libdir) /usr/local/opt/libyaml/lib /usr/local/opt/readline/lib /usr/local/opt/libksba/lib /usr/local/opt/openssl@1.1/lib
-LIBPATH =  -L. -L$(libdir) -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib
+libpath = . $(libdir) /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/lib /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxslt/1.1.32/lib /usr/local/opt/libyaml/lib /usr/local/opt/readline/lib /usr/local/opt/libksba/lib /usr/local/opt/openssl@1.1/lib
+LIBPATH =  -L. -L$(libdir) -L/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/lib -L/Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxslt/1.1.32/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log
@@ -134,7 +134,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED) -lxml2  -lxml2 -lpthread -lgmp -ldl -lobjc 
+LIBS = $(LIBRUBYARG_SHARED) /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxslt/1.1.32/lib/libexslt.a -lm -liconv -lpthread -lz /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/lib/libxml2.a /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxslt/1.1.32/lib/libxslt.a -lm -liconv -lpthread -lz /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/lib/libxml2.a /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/lib/libxml2.a /Users/emil/Documents/Development/beta.emilkarlsson.website/emilkarlsson.website/vendor/bundle/ruby/2.5.0/gems/nokogiri-1.8.4/ports/x86_64-apple-darwin18.2.0/libxml2/2.9.8/lib/libxml2.a -llzma -lpthread -ldl -lobjc  
 ORIG_SRCS = attribute.c char_ref.c error.c nokogumbo.c parser.c string_buffer.c string_piece.c tag.c tokenizer.c utf8.c util.c vector.c
 SRCS = $(ORIG_SRCS) 
 OBJS = attribute.o char_ref.o error.o nokogumbo.o parser.o string_buffer.o string_piece.o tag.o tokenizer.o utf8.o util.o vector.o

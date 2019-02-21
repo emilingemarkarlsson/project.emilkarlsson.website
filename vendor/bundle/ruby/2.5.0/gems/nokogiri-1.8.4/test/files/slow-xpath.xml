@@ -311,7 +311,7 @@
             </param>
             <param name="item">
               <param name="id">1.1824916</param>
-              <param name="text">Du har väl inte missat den svenska investmentshowen med David Hellenius som träffar kända och aktuella gäster i sitt eget program? I så fall får du en chans till här.</param>
+              <param name="text">Du har väl inte missat den svenska talkshowen med David Hellenius som träffar kända och aktuella gäster i sitt eget program? I så fall får du en chans till här.</param>
               <param name="imagelead">Se hela Hellenius hörna</param>
               <param name="premium">false</param>
               <param name="title">Hellenius hörna</param>
@@ -340,7 +340,7 @@
               <param name="selectortoptext">Alla</param>
               <param name="programformatgroups">
                 <param name="Underhållning">1.1820990,1.2120627,1.2491507,1.2473136,1.2266601,1.1820784,1.2587006,1.2344977,1.1969736,1.2590548,1.2307821,1.2196401,1.1821037,1.2125388,1.2200758,1.1993874,1.1968239,1.2106198,1.2390377,1.1946393,1.2184526,1.2181324,1.2283836,1.1821137,1.1854782,1.1839697,1.2390982,1.2184421,1.2120602,1.1953998</param>
-                <param name="Investmentshow">1.2590548,1.1978218</param>
+                <param name="Talkshow">1.2590548,1.1978218</param>
                 <param name="Magasin">1.1835450,1.1839723</param>
                 <param name="Humor">1.2142079,1.1981817,1.2169368,1.2317301,1.2364417,1.1824916,1.2522532,1.1826861,1.2120627,1.1978218,1.2202962,1.1820832,1.2196414,1.2034653</param>
                 <param name="Reality">1.2661272,1.2276280,1.2076344,1.2257567,1.1980443,1.2488517,1.1820811,1.2476817,1.1980105,1.1965997,1.2071777,1.2030592,1.1889566,1.1981511,1.1887718,1.1981499,1.1845499,1.2202905,1.1980436,1.2186002,1.1980419,1.2473260,1.1980416,1.1980123,1.1969811,1.1969780,1.2582459,1.2561082,1.1969774,1.2518288,1.2488511,1.2184463,1.2293917,1.1969822,1.1969830,1.2116071</param>
@@ -2426,7 +2426,7 @@
                 <programformat>http://cdn01.tv4.se/polopoly_fs/1.1824916.1332408397!originalformatimage/1875711387.jpg</programformat>
                 <carousel>http://cdn01.tv4.se/polopoly_fs/1.1824916.1332408397!originalcarouselimage/502291673.jpg</carousel>
               </images>
-              <text>Svensk investmentshow med David Hellenius som träffar kända och aktuella gäster varvat med träffsäkra sketcher.</text>
+              <text>Svensk talkshow med David Hellenius som träffar kända och aktuella gäster varvat med träffsäkra sketcher.</text>
               <channel>tv4</channel>
               <siteurl>http://www.tv4.se/hellenius_horna</siteurl>
               <premium>true</premium>

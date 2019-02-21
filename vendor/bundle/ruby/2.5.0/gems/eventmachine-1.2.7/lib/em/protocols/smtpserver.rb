@@ -169,7 +169,7 @@ module EventMachine
         @parms.merge!(parms)
       end
 
-      # In SMTP, the server investments first. But by a (perhaps flawed) axiom in EM,
+      # In SMTP, the server talks first. But by a (perhaps flawed) axiom in EM,
       # #post_init will execute BEFORE the block passed to #start_server, for any
       # given accepted connection. Since in this class we'll probably be getting
       # a lot of initialization parameters, we want the guts of post_init to
