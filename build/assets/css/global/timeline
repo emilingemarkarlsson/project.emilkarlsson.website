@@ -66,14 +66,14 @@
       .TimelineItem:first-child > .TimelineItem-details {
         padding-top: 2em; } }
   .TimelineItem.TimelineItem--fadeIn, .TimelineItem.TimelineItem--header:first-child {
-    mask-image: linear-gradient(to bottom, transparent 30px, black 80px); }
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30px, black 80px); }
   .TimelineItem.TimelineItem--fadeIn {
     margin-top: -2em; }
     @media (max-width: 800px) {
       .TimelineItem.TimelineItem--fadeIn {
         mask-image: none; }
         .TimelineItem.TimelineItem--fadeIn > .TimelineItem-pics {
-          mask-image: linear-gradient(to bottom, transparent 30px, black 80px); }
+          mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 30px, black 80px); }
         .TimelineItem.TimelineItem--fadeIn .TimelineItem-pics > img:first-child {
           margin-top: 4em; } }
 
