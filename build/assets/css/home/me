@@ -16,7 +16,7 @@ body.index header {
   justify-content: space-between; }
 
 .Me-blurb {
-  flex: 0 1 44%; }
+  flex: inherit; }
   .Me-blurb h2, .Me-blurb h3, .Me-blurb h4 {
     animation-name: animation--jelly-bounce;
     animation-iteration-count: 1;
@@ -60,8 +60,8 @@ body.index header {
   .Me-social a:hover {
     transform: translateY(-5px); }
   .Me-social a svg {
-    position: absolute;
-    width: 100%; }
+    position: relative;
+    width: 50%; }
     .Me-social a svg path {
       transition: stroke 0.5s ease;
       stroke: #999;

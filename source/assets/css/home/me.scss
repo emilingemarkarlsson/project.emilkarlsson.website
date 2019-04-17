@@ -18,7 +18,7 @@ body.index header {
 }
 
 .Me-blurb {
-  flex: 0 1 44%;
+  flex: inherit;
 
   h2, h3, h4 {
     animation-name: animation--jelly-bounce;
@@ -74,8 +74,8 @@ body.index header {
   position: relative;
 
   svg {
-    position: absolute;
-    width: 100%;
+    position: relative;
+    width: 50%;
     path {
       transition: stroke 0.5s ease;
       stroke: #999;
@@ -97,7 +97,7 @@ body.index header {
   align-self: flex-end;
   min-width: 1px; // firefox is finnicky
   position: relative;
-  
+
   img {
     display: block;
     max-width: 100%;
