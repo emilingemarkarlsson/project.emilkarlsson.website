@@ -1,0 +1,15 @@
+current directory: /Users/emil/Documents/Development/emilkarlsson.website/vendor/bundle/ruby/2.6.0/gems/fast_blank-1.0.0/ext/fast_blank
+/usr/local/opt/ruby/bin/ruby -I /usr/local/lib/ruby/site_ruby/2.6.0 -r ./siteconf20190730-48960-1157spu.rb extconf.rb
+creating Makefile
+
+current directory: /Users/emil/Documents/Development/emilkarlsson.website/vendor/bundle/ruby/2.6.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR=" clean
+
+current directory: /Users/emil/Documents/Development/emilkarlsson.website/vendor/bundle/ruby/2.6.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR="
+compiling fast_blank.c
+linking shared-object fast_blank.bundle
+
+current directory: /Users/emil/Documents/Development/emilkarlsson.website/vendor/bundle/ruby/2.6.0/gems/fast_blank-1.0.0/ext/fast_blank
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 fast_blank.bundle ./.gem.20190730-48960-1xzh79w

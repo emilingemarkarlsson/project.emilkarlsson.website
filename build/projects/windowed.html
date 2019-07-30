@@ -36,15 +36,15 @@
   <body class='projects projects_windowed'>
     <header>
   <nav class='MainMenu'>
-    <a href='/' class='Logo'>
-      <span>emil</span>karlsson
+    <a href='http://www.emilkarlsson.website' class='Logo'>
+      <span>emil</span>karlsson.website
     </a>
 
     <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
 
     <section class='MainMenu-links'>
-      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
-      <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>
+      <!--<a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>-->
+      <!--<a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>-->
       <!--<a href='/investments' class='NavBtn' id='NavBtnInvestments'>Investments</a>-->
       <!--<a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a>-->
 
@@ -145,7 +145,7 @@
 <p><em>JavaScript</em>:</p>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <h3 id="select-box">Select box</h3>
 
@@ -166,7 +166,7 @@
 </pre></td></tr></tbody></table></code></pre></div><p><em>JavaScript</em>:</p>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <h3 id="vertical">Vertical</h3>
 
@@ -194,7 +194,7 @@
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">vertical</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
@@ -210,9 +210,9 @@
 2
 3
 4
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
-  <span class="na">on</span><span class="p">:</span> <span class="s2">"ENABLED"</span><span class="p">,</span>
-  <span class="na">off</span><span class="p">:</span> <span class="s2">"DISABLED"</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+  <span class="na">on</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ENABLED</span><span class="dl">"</span><span class="p">,</span>
+  <span class="na">off</span><span class="p">:</span> <span class="dl">"</span><span class="s2">DISABLED</span><span class="dl">"</span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <p>You can use CSS to set the component's width and height. Alternatively, you can pass a 
@@ -268,18 +268,18 @@
 13
 14
 15
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">change</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">checked</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">alert</span><span class="p">(</span> <span class="s2">"The checkbox is now "</span> <span class="o">+</span> <span class="p">(</span><span class="nx">checked</span> <span class="p">?</span> <span class="s2">"checked"</span> <span class="p">:</span> <span class="s2">"unchecked"</span><span class="p">)</span> <span class="p">);</span>
+    <span class="nx">alert</span><span class="p">(</span> <span class="dl">"</span><span class="s2">The checkbox is now </span><span class="dl">"</span> <span class="o">+</span> <span class="p">(</span><span class="nx">checked</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">checked</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">unchecked</span><span class="dl">"</span><span class="p">)</span> <span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">)</span> <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">change</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">,</span> <span class="nx">selected</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">alert</span><span class="p">(</span> 
-      <span class="s2">"You selected item #"</span> <span class="o">+</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">selected</span><span class="p">).</span><span class="nx">index</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> 
-      <span class="s2">" - "</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selected</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span>
+      <span class="dl">"</span><span class="s2">You selected item #</span><span class="dl">"</span> <span class="o">+</span> <span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">selected</span><span class="p">).</span><span class="nx">index</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> 
+      <span class="dl">"</span><span class="s2"> - </span><span class="dl">"</span> <span class="o">+</span> <span class="nx">$</span><span class="p">(</span><span class="nx">selected</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span>
     <span class="p">);</span>
   <span class="p">}</span>
 <span class="p">});</span>
@@ -323,11 +323,11 @@ Included by default are 4 themes: <code>info</code>, <code>success</code>, <code
 5
 6
 7
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#themeDemo"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
-  <span class="na">theme</span><span class="p">:</span> <span class="s2">"info"</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#themeDemo</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+  <span class="na">theme</span><span class="p">:</span> <span class="dl">"</span><span class="s2">info</span><span class="dl">"</span>
 <span class="p">})</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox:not(#themeDemo)"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox:not(#themeDemo)</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">theme</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
@@ -386,22 +386,22 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 15
 16
 17
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#demoDisable</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">disabled</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.enable"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setEnabled'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.enable</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#demoDisable</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">setEnabled</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.disable"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setEnabled'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.disable</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#demoDisable</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">setEnabled</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.toggle"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"#demoDisable"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleEnabled'</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.toggle</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#demoDisable</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">toggleEnabled</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <h3 id="animation">Animation</h3>
@@ -439,11 +439,11 @@ on the existing <code>&lt;input&gt;</code> or <code>&lt;select&gt;</code>.</p>
 5
 6
 7
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">animate</span><span class="p">:</span> <span class="kc">false</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span>
   <span class="na">animateDuration</span><span class="p">:</span> <span class="mi">1000</span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
@@ -520,24 +520,24 @@ or using <code>.windowed('toggleState')</code>.</p>
 17
 18
 19
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox, select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox, select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">();</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.on"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setState'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.on</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">setState</span><span class="dl">'</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.off"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setState'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.off</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">setState</span><span class="dl">'</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.toggle"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleState'</span><span class="p">);</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.toggle</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">toggleState</span><span class="dl">'</span><span class="p">);</span>
 <span class="p">});</span>
 
-<span class="nx">$</span><span class="p">(</span><span class="s2">".btn.num"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+<span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">.btn.num</span><span class="dl">"</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
   <span class="c1">// We have to -1 because the index is 0 based</span>
   <span class="c1">// i.e. the first option's index is 0, 2nd is 1 etc.</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s2">"select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'selectOption'</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+  <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">selectOption</span><span class="dl">'</span><span class="p">,</span> <span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">text</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
 <span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <h3 id="tinted-window">Tinted window</h3>
@@ -597,7 +597,7 @@ or using <code>.windowed('toggleState')</code>.</p>
 <p><em>JavaScript</em>:</p>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s2">"input:checkbox, select"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span><span class="na">theme</span><span class="p">:</span> <span class="s2">"custom"</span><span class="p">});</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">input:checkbox, select</span><span class="dl">"</span><span class="p">).</span><span class="nx">windowed</span><span class="p">({</span><span class="na">theme</span><span class="p">:</span> <span class="dl">"</span><span class="s2">custom</span><span class="dl">"</span><span class="p">});</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <p><em>CSS</em>:</p>
 
@@ -756,39 +756,39 @@ Sets the width of the component. See also: *height*.||
 <p>windowed.js includes a few utility methods. The methods follow the jQuery UI pattern:</p>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'methodName'</span><span class="p">,</span> <span class="p">[</span><span class="nx">optionalParameters</span><span class="p">]);</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">select</span><span class="dl">'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">methodName</span><span class="dl">'</span><span class="p">,</span> <span class="p">[</span><span class="nx">optionalParameters</span><span class="p">]);</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <h3 id="setenabled"><code>setEnabled</code></h3>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setEnabled'</span><span class="p">,</span> <span class="nx">enabled</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">select</span><span class="dl">'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">setEnabled</span><span class="dl">'</span><span class="p">,</span> <span class="nx">enabled</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <p>Enables/disables the component. enabled is a boolean, where <code>true</code> enables the component, and <code>false</code> disables it. The method returns this boolean value.</p>
 
 <h3 id="toggleenabled"><code>toggleEnabled</code></h3>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleEnabled'</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">select</span><span class="dl">'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">toggleEnabled</span><span class="dl">'</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <p>Toggles the component's enabled/disabled state. Returns a boolean value indicating the component's new state, where <code>true == enabled</code>.</p>
 
 <h3 id="setstate"><code>setState</code></h3>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input:checkbox'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'setState'</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">input:checkbox</span><span class="dl">'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">setState</span><span class="dl">'</span><span class="p">,</span> <span class="nx">state</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <p>Checks/unchecks a checkbox component. state is a boolean, where <code>true</code> checks the component, and <code>false</code> unchecks it. The method returns this boolean value.</p>
 
 <h3 id="togglestate"><code>toggleState</code></h3>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'input:checkbox'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'toggleState'</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">input:checkbox</span><span class="dl">'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">toggleState</span><span class="dl">'</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div><p>Toggles a checkbox component's checked/unchecked state. Returns a boolean value indicating the component's new state, where <code>true == checked</code>.</p>
 
 <h3 id="selectoption"><code>selectOption</code></h3>
 
 <div class="highlight"><pre class="codehilite javascript"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="s1">'selectOption'</span><span class="p">,</span> <span class="nx">optionIndex</span><span class="p">)</span>
+</pre></td><td class="rouge-code"><pre><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">select</span><span class="dl">'</span><span class="p">).</span><span class="nx">windowed</span><span class="p">(</span><span class="dl">'</span><span class="s1">selectOption</span><span class="dl">'</span><span class="p">,</span> <span class="nx">optionIndex</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div>
 <p>Selects an option on a <code>&lt;select&gt;</code>-based component. <code>optionIndex</code> is an integer, representing the 0-based index of the option to be selected. The selected <code>.option</code> is returned.</p>
 

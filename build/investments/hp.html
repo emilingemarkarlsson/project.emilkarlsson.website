@@ -36,15 +36,15 @@
   <body class='investments investments_hp'>
     <header>
   <nav class='MainMenu'>
-    <a href='/' class='Logo'>
-      <span>emil</span>karlsson
+    <a href='http://www.emilkarlsson.website' class='Logo'>
+      <span>emil</span>karlsson.website
     </a>
 
     <a class='NavBtn NavBtn--mobileOnly' data-toggle-modal-menu>Menu</a>
 
     <section class='MainMenu-links'>
-      <a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>
-      <a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>
+      <!--<a href='/' class='NavBtn' id='NavBtnAbout'>About Me</a>-->
+      <!--<a href='/projects' class='NavBtn' id='NavBtnProjects'>Projects</a>-->
       <!--<a href='/investments' class='NavBtn' id='NavBtnInvestments'>Investments</a>-->
       <!--<a href='/blog' class='NavBtn' id='NavBtnBlog'>Blog</a>-->
 
@@ -180,8 +180,8 @@
 </pre></td><td class="rouge-code"><pre>bundle gem hp_language_model <span class="nt">--test</span><span class="o">=</span>rspec
 
 <span class="nb">cd </span>hp_language_model
-rm <span class="nt">-r</span> lib/hp_language_model
-rm hp_language_model.gemspec
+<span class="nb">rm</span> <span class="nt">-r</span> lib/hp_language_model
+<span class="nb">rm </span>hp_language_model.gemspec
 
 <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"class HpLanguageModel</span><span class="se">\n</span><span class="s2">end"</span> <span class="o">&gt;</span> lib/hp_language_model.rb
 <span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"source </span><span class="se">\"</span><span class="s2">https://rubygems.org</span><span class="se">\"\n\n</span><span class="s2">gem 'rspec'"</span> <span class="o">&gt;</span> Gemfile
@@ -197,7 +197,7 @@ rm hp_language_model.gemspec
 <div class="highlight"><pre class="codehilite shell"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 </pre></td><td class="rouge-code"><pre>curl https://github.com/syntactician/corpora/raw/master/hp/Archive.zip <span class="nt">-L</span> <span class="nt">-o</span> hp.zip
-unzip <span class="nt">-p</span> hp <span class="nt">-x</span> .DS_Store __MACOSX/<span class="k">*</span> <span class="o">&gt;</span> hp.txt <span class="o">&amp;&amp;</span> rm hp.zip
+unzip <span class="nt">-p</span> hp <span class="nt">-x</span> .DS_Store __MACOSX/<span class="k">*</span> <span class="o">&gt;</span> hp.txt <span class="o">&amp;&amp;</span> <span class="nb">rm </span>hp.zip
 </pre></td></tr></tbody></table></code></pre></div>
 <p>The concatenated books (<code>hp.txt</code>) will be the raw data we'll use to shape our model (the Ruby program we're writing) - we'll commonly refer to this raw data as our <em>corpus</em>. Before we go any further we'll want to  <a href="https://en.wikipedia.org/wiki/Lexical_analysis#Tokenization">tokenize</a> our corpus. The tokenizing procedure strips out extraneous details so we can focus on the "meat" of the language we're working with. We'll commonly strip out things like case, and special characters. We'll also store our tokens as symbols, since that'll save us stats where we have tokens (words) appearing repeatedly (which, of course, will happen a lot). We'll begin with a simple spec for our tokenization method:</p>
 
